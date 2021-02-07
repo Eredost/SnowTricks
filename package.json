@@ -2,8 +2,12 @@
     "devDependencies": {
         "@symfony/stimulus-bridge": "^2.0.0",
         "@symfony/webpack-encore": "^1.0.0",
+        "autoprefixer": "^10.2.4",
         "core-js": "^3.0.0",
+        "font-awesome": "^4.7.0",
+        "postcss-loader": "^4.0.0",
         "regenerator-runtime": "^0.13.2",
+        "reset-css": "^5.0.1",
         "sass": "^1.32.6",
         "sass-loader": "^10.0.0",
         "stimulus": "^2.0.0",
@@ -16,5 +20,13 @@
         "dev": "encore dev",
         "watch": "encore dev --watch",
         "build": "encore production --progress"
-    }
+    },
+    "postcss": {
+        "plugins": {
+            "autoprefixer": {}
+        }
+    },
+    "browserslist": [
+        "last 2 versions"
+    ]
 }
