@@ -6,10 +6,20 @@ use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
+ * @UniqueEntity(
+ *     fields = "username",
+ *     message = "Ce nom d'utilisateur est déjà utilisé"
+ * )
+ * @UniqueEntity(
+ *     fields = "email",
+ *     message = "Cette adresse email est déjà utilisée"
+ * )
  */
 class User implements UserInterface
 {
@@ -22,11 +32,24 @@ class User implements UserInterface
 
     /**
      * @ORM\Column(type="string", length=60, unique=true)
+     * @Assert\NotBlank(
+     *     message = "Le nom d'utilisateur ne peut pas être vide"
+     * )
+     * @Assert\Length(
+     *     max = 60,
+     *     maxMessage = "Le nom d'utilisateur ne peut pas dépasser {{ limit }} caractères"
+     * )
      */
     private $username;
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
+     * @Assert\NotBlank(
+     *     message = "L'adresse email ne peut pas être vide"
+     * )
+     * @Assert\Email(
+     *     message = "L'adresse email renseignée n'est pas valide"
+     * )
      */
     private $email;
 

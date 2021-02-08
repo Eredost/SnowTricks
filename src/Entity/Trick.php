@@ -6,9 +6,15 @@ use App\Repository\TrickRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=TrickRepository::class)
+ * @UniqueEntity(
+ *     fields = "name",
+ *     message = "Ce nom de figure est déjà utilisé"
+ * )
  */
 class Trick
 {
@@ -21,11 +27,25 @@ class Trick
 
     /**
      * @ORM\Column(type="string", length=120)
+     * @Assert\NotBlank(
+     *     message = "Le nom ne peut pas être vide"
+     * )
+     * @Assert\Length(
+     *     max = 120,
+     *     maxMessage = "Le nom ne peut pas dépasser {{ limit }} caractères"
+     * )
      */
     private $name;
 
     /**
      * @ORM\Column(type="text")
+     * @Assert\NotBlank(
+     *     message = "La description ne peut pas être vide"
+     * )
+     * @Assert\Length(
+     *     max = 5000,
+     *     maxMessage = "La description ne peut pas dépasser {{ limit }} caractères"
+     * )
      */
     private $description;
 

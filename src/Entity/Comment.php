@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\CommentRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass=CommentRepository::class)
@@ -19,6 +20,13 @@ class Comment
 
     /**
      * @ORM\Column(type="text")
+     * @Assert\NotBlank(
+     *     message = "Le contenu du commentaire ne peut pas être vide"
+     * )
+     * @Assert\Length(
+     *     max = 500,
+     *     maxMessage = "Le contenu du commentaire ne peut pas dépasser {{ limit }} caractères"
+     * )
      */
     private $content;
 
