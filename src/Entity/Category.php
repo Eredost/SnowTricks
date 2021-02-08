@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Entity\Traits\TimestampableTrait;
 use App\Repository\CategoryRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -18,6 +19,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Category
 {
+    use TimestampableTrait;
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -26,7 +29,7 @@ class Category
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=60)
+     * @ORM\Column(type="string", length=60, unique=true)
      * @Assert\NotBlank(
      *     message = "Le nom de la catégorie ne peut pas être vide"
      * )
@@ -44,7 +47,8 @@ class Category
 
     public function __construct()
     {
-        $this->tricks = new ArrayCollection();
+        $this->tricks    = new ArrayCollection();
+        $this->createdAt = new \DateTime();
     }
 
     public function getId(): ?int

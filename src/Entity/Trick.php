@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Entity\Traits\TimestampableTrait;
 use App\Repository\TrickRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -18,6 +19,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Trick
 {
+    use TimestampableTrait;
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -26,7 +29,7 @@ class Trick
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=120)
+     * @ORM\Column(type="string", length=120, unique=true)
      * @Assert\NotBlank(
      *     message = "Le nom ne peut pas être vide"
      * )
@@ -73,8 +76,9 @@ class Trick
 
     public function __construct()
     {
-        $this->media = new ArrayCollection();
-        $this->comments = new ArrayCollection();
+        $this->media     = new ArrayCollection();
+        $this->comments  = new ArrayCollection();
+        $this->createdAt = new \DateTime();
     }
 
     public function getId(): ?int
