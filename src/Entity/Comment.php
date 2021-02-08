@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Entity\Traits\TimestampableTrait;
 use App\Repository\CommentRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -11,6 +12,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Comment
 {
+    use TimestampableTrait;
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -41,6 +44,11 @@ class Comment
      * @ORM\JoinColumn(nullable=false)
      */
     private $trick;
+
+    public function __construct()
+    {
+        $this->createdAt = new \DateTime();
+    }
 
     public function getId(): ?int
     {

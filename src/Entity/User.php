@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Entity\Traits\TimestampableTrait;
 use App\Repository\UserRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -23,6 +24,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class User implements UserInterface
 {
+    use TimestampableTrait;
+
     /**
      * @ORM\Id
      * @ORM\GeneratedValue
@@ -81,8 +84,10 @@ class User implements UserInterface
 
     public function __construct()
     {
-        $this->tricks = new ArrayCollection();
-        $this->comments = new ArrayCollection();
+        $this->tricks      = new ArrayCollection();
+        $this->comments    = new ArrayCollection();
+        $this->isValidated = false;
+        $this->createdAt   = new \DateTime();
     }
 
     public function getId(): ?int
