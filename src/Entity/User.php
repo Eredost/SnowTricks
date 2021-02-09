@@ -68,6 +68,17 @@ class User implements UserInterface
     private $password;
 
     /**
+     * @Assert\NotBlank(
+     *     message = "Le mot de passe ne peut pas être vide"
+     * )
+     * @Assert\Regex(
+     *     pattern = "/(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/",
+     *     message = "Votre mot de passe doit contenir au minimum 8 caractères dont une minuscule, une majuscule et un chiffre"
+     * )
+     */
+    private $plainPassword;
+
+    /**
      * @ORM\Column(type="boolean")
      */
     private $isValidated;
@@ -242,6 +253,18 @@ class User implements UserInterface
                 $comment->setUser(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getPlainPassword(): ?string
+    {
+        return $this->plainPassword;
+    }
+
+    public function setPlainPassword(string $plainPassword): self
+    {
+        $this->plainPassword = $plainPassword;
 
         return $this;
     }

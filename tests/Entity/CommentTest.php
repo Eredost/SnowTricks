@@ -22,4 +22,19 @@ class CommentTest extends KernelTestCase
             ->setTrick(new Trick())
         ;
     }
+
+    public function testValidEntity(): void
+    {
+        $this->assertHasErrors($this->getEntity());
+    }
+
+    public function testInvalidBlankContent(): void
+    {
+        $this->assertHasErrors($this->getEntity()->setContent(''), 1);
+    }
+
+    public function testInvalidLengthContent(): void
+    {
+        $this->assertHasErrors($this->getEntity()->setContent(str_repeat('*', 501)), 1);
+    }
 }

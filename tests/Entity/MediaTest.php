@@ -21,4 +21,29 @@ class MediaTest extends KernelTestCase
             ->setTrick(new Trick())
         ;
     }
+
+    public function testValidEntity(): void
+    {
+        $this->assertHasErrors($this->getEntity());
+    }
+
+    public function testInvalidBlankSrc(): void
+    {
+        $this->assertHasErrors($this->getEntity()->setSrc(''), 1);
+    }
+
+    public function testInvalidLengthSrc(): void
+    {
+        $this->assertHasErrors($this->getEntity()->setSrc(str_repeat('a', 256)), 1);
+    }
+
+    public function testInvalidBlankType(): void
+    {
+        $this->assertHasErrors($this->getEntity()->setType(''), 1);
+    }
+
+    public function testInvalidLengthType(): void
+    {
+        $this->assertHasErrors($this->getEntity()->setType(str_repeat('a', 61)), 1);
+    }
 }
