@@ -18,13 +18,14 @@ class CommentFixture extends AbstractFixture implements DependentFixtureInterfac
                     ->setContent($this->faker->text())
                     ->setUser($this->getRandomReference('main_user'))
                     ->setTrick($trick)
+                    ->setCreatedAt($this->faker->dateTimeBetween('-29 days', 'now'))
                 ;
 
                 return $comment;
             });
-
-            $manager->flush();
         }
+
+        $manager->flush();
     }
 
     public function getDependencies(): array

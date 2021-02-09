@@ -28,6 +28,7 @@ class UserFixture extends AbstractFixture
                 ->setEmail($admins[$count]['email'])
                 ->setRoles($admins[$count]['roles'])
                 ->setIsValidated(true)
+                ->setCreatedAt($this->faker->dateTimeBetween('-3 months', '-2 months'))
             ;
             $admin->setPassword($this->encoder->encodePassword($admin, $admins[$count]['password']));
 
@@ -41,6 +42,7 @@ class UserFixture extends AbstractFixture
                 ->setEmail($this->faker->safeEmail)
                 ->setRoles(['ROLE_USER'])
                 ->setIsValidated(true)
+                ->setCreatedAt($this->faker->dateTimeBetween('-3 months', '-2 months'))
             ;
             $user->setPassword($this->encoder->encodePassword($user, 'password'));
 
