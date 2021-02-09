@@ -2,6 +2,8 @@
 
 namespace App\DataFixtures;
 
+use App\DataFixtures\Providers\TrickProvider;
+use App\DataFixtures\Providers\UserProvider;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Faker\Factory;
@@ -29,8 +31,6 @@ abstract class AbstractFixture extends Fixture
     {
         $this->manager = $manager;
         $this->faker   = Factory::create('fr_FR');
-        // Add provider
-        //$this->faker->addProvider(new RoleProvider());
 
         $this->loadData($manager);
     }
