@@ -18,6 +18,7 @@ class TrickFixture extends AbstractFixture implements DependentFixtureInterface
             // Add categories
             $category = (new Category())
                 ->setName($categoryName)
+                ->setCreatedAt($this->faker->dateTimeBetween('-3 months', '-2 months'))
             ;
             $manager->persist($category);
 
@@ -28,6 +29,7 @@ class TrickFixture extends AbstractFixture implements DependentFixtureInterface
                     ->setDescription($this->faker->paragraphs(3, true))
                     ->setCategory($category)
                     ->setUser($this->getRandomReference('main_user'))
+                    ->setCreatedAt($this->faker->dateTimeBetween('-2 months', '-30 days'))
                 ;
 
                 return $trick;
