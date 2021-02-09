@@ -12,11 +12,12 @@ class UserProvider
      * @var array[]
      */
     private const ADMIN_USERS = [
-        'admin' => [
-            'email'    => 'admin@snowtricks.fr',
-            'password' => 'L4hA5tcRS4yBcJLp',
-            'role'     => 'ROLE_ADMIN',
-        ]
+        [
+            'username'  => 'admin',
+            'email'     => 'admin@snowtricks.fr',
+            'password'  => 'L4hA5tcRS4yBcJLp',
+            'roles'     => ['ROLE_ADMIN'],
+        ],
     ];
 
     /**
