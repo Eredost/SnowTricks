@@ -40,7 +40,7 @@ class Media
      * )
      * @Assert\Length(
      *     max = 60,
-     *     maxMessage = "Le type de media ne peut pas dépasser {{ limit ]] caractères"
+     *     maxMessage = "Le type de media ne peut pas dépasser {{ limit }} caractères"
      * )
      */
     private $type;

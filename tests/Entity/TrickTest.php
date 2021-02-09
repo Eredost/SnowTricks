@@ -23,4 +23,34 @@ class TrickTest extends KernelTestCase
             ->setUser(new User())
         ;
     }
+
+    public function testValidEntity(): void
+    {
+        $this->assertHasErrors($this->getEntity());
+    }
+
+    public function testInvalidBlankName(): void
+    {
+        $this->assertHasErrors($this->getEntity()->setName(''), 1);
+    }
+
+    public function testInvalidLengthName(): void
+    {
+        $this->assertHasErrors($this->getEntity()->setName(str_repeat('*', 121)), 1);
+    }
+
+    public function testInvalidUniqueName(): void
+    {
+        $this->assertHasErrors($this->getEntity()->setName('Nose-pick'), 1);
+    }
+
+    public function testInvalidBlankDescription(): void
+    {
+        $this->assertHasErrors($this->getEntity()->setDescription(''), 1);
+    }
+
+    public function testInvalidLengthDescription(): void
+    {
+        $this->assertHasErrors($this->getEntity()->setDescription(str_repeat('*', 5001)), 1);
+    }
 }
