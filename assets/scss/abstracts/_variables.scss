@@ -1,3 +1,44 @@
 // Font-Awesome
 // --------------------
 $fa-font-path: "~font-awesome/fonts";
+
+// Font sizes
+// --------------------
+$default-font-size: 16px;
+$medium-font-size: 22px;
+
+$font-family: 'Poppins';
+$font-family-fallback: 'Helvetica', sans-serif;
+
+// Colors
+// --------------------
+$white: #fff;
+$lighter-grey: #fbfbfb;
+$light-grey: #f6f8fc;
+$grey: #777;
+$black: #32333c;
+$orange: #feb633;
+$blue: #209CEE;
+$red: #f93154;
+$green: #00b74a;
+
+$background-color: $white;
+$background-color-alt: $lighter-grey;
+$footer-background-color: $light-grey;
+
+$text-color: $grey;
+$text-color-alt: $white;
+$title-color: $black;
+$brand-color: $blue;
+$warning-color: $red;
+$success-color: $green;
+
+// Breakpoints
+// --------------------
+$breakpoint-small: 610px;
+$breakpoint-medium: 880px;
+$breakpoint-large: 1100px;
+
+// Animations
+// --------------------
+$duration-fast: 0.3s;

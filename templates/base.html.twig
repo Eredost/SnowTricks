@@ -18,7 +18,11 @@
         {% endblock %}
     </head>
     <body>
+        {% include 'layouts/_header.html.twig' %}
+
         {% block body %}{% endblock %}
+
+        {% include 'layouts/_footer.html.twig' %}
 
         {# Scripts #}
         {% block javascripts %}
