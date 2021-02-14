@@ -13,7 +13,14 @@ import './bootstrap';
 
 let app = {
     init: function () {
-        console.log('hello');
+        // Handle navbar menu on mobile
+        let navbarToggleElement = document.querySelector('.js-navbar-toggle');
+        navbarToggleElement.addEventListener('click', app.handleNavbarToggleClick);
+    },
+
+    handleNavbarToggleClick: function () {
+        let navbarMenuElement = document.querySelector('.js-navbar-menu');
+        navbarMenuElement.classList.toggle('visible');
     }
 };
 

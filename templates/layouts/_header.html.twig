@@ -7,35 +7,35 @@
             </a>
         </h1>
 
-        <div class="header__nav-toggle">
+        <div class="header__nav-toggle js-navbar-toggle">
             <i class="fa fa-bars" aria-hidden="true"></i>
         </div>
 
-        <ul class="header__nav">
-            <li>
+        <ul class="header__nav js-navbar-menu">
+            <li class="header__nav-item">
                 <a href="{{ path('homepage') }}">
                     Accueil
                 </a>
             </li>
-            <li>
-                <a href="#">
+            <li class="header__nav-item">
+                <a href="{{ path('homepage') }}#tricks">
                     Figures
                 </a>
             </li>
 
             {% if not is_granted('IS_AUTHENTICATED_FULLY') %}
-                <li>
+                <li class="header__nav-item">
                     <a href="#">
                         Connexion
                     </a>
                 </li>
-                <li>
+                <li class="header__nav-item">
                     <a href="#">
                         Inscription
                     </a>
                 </li>
             {% else %}
-                <li>
+                <li class="header__nav-item">
                     <a href="#">
                         Déconnexion
                     </a>
