@@ -1,10 +1,10 @@
 .header {
+  position: relative;
   padding: 0 1em;
   background-color: $background-color;
 
   &__wrapper {
     display: flex;
-    position: relative;
     justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
@@ -25,11 +25,13 @@
 
   &__nav {
     position: absolute;
+    padding: 0 1em 0.5em;
+    z-index: 50;
     top: 100%;
-    bottom: 0;
     left: 0;
     right: 0;
     display: none;
+    background-color: $background-color;
 
     &.visible {
       display: block;
@@ -48,6 +50,7 @@
     &__nav {
       position: static;
       display: block;
+      padding: 0;
     }
 
     &__nav-item {
