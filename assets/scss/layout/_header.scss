@@ -1,10 +1,21 @@
 .header {
   padding: 0 1em;
+  background-color: $background-color;
 
   &__wrapper {
     display: flex;
+    position: relative;
     justify-content: space-between;
     align-items: center;
+    flex-wrap: wrap;
+    min-height: 70px;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+
+  &__logo > a {
+    font-size: 1em;
+    color: $title-color;
   }
 
   &__nav-toggle {
@@ -12,9 +23,39 @@
     cursor: pointer;
   }
 
+  &__nav {
+    position: absolute;
+    top: 100%;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    display: none;
+
+    &.visible {
+      display: block;
+    }
+  }
+
+  &__nav-item {
+    padding: 0.5em 0;
+  }
+
   @media all and (min-width: $breakpoint-medium) {
     &__nav-toggle {
       display: none;
+    }
+
+    &__nav {
+      position: static;
+      display: block;
+    }
+
+    &__nav-item {
+      display: inline-block;
+
+      & + & {
+        margin-left: 2em;
+      }
     }
   }
 }
