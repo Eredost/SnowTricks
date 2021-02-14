@@ -10,3 +10,11 @@ import './scss/main.scss';
 
 // start the Stimulus application
 import './bootstrap';
+
+let app = {
+    init: function () {
+        console.log('hello');
+    }
+};
+
+document.addEventListener('DOMContentLoaded', app.init);
