@@ -1,0 +1,47 @@
+<header class="header">
+    <div class="header__wrapper">
+
+        <h1 class="header__logo">
+            <a href="{{ path('homepage') }}">
+                SnowTricks
+            </a>
+        </h1>
+
+        <div class="header__nav-toggle">
+            <i class="fa fa-bars" aria-hidden="true"></i>
+        </div>
+
+        <ul class="header__nav">
+            <li>
+                <a href="{{ path('homepage') }}">
+                    Accueil
+                </a>
+            </li>
+            <li>
+                <a href="#">
+                    Figures
+                </a>
+            </li>
+
+            {% if not is_granted('IS_AUTHENTICATED_FULLY') %}
+                <li>
+                    <a href="#">
+                        Connexion
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        Inscription
+                    </a>
+                </li>
+            {% else %}
+                <li>
+                    <a href="#">
+                        Déconnexion
+                    </a>
+                </li>
+            {% endif %}
+        </ul>
+
+    </div>
+</header>
