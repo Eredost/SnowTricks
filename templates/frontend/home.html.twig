@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}SnowTricks{% endblock %}
+{% block title %}Communauté de Snowboarders{% endblock %}
 
 {% block body %}
     <section class="banner">
@@ -11,5 +11,19 @@
         <a href="#tricks">
             <i class="fa fa-arrow-down banner__arrow" aria-hidden="true"></i>
         </a>
+    </section>
+
+    <section class="tricks" id="tricks">
+        <div class="section-wrapper">
+
+            {% for trick in tricks %}
+                {% include 'layouts/_trick-card.html.twig' with { trick } %}
+            {% endfor %}
+
+            <button class="button tricks__load-more js-load-more">
+                <i class="fa fa-spinner" aria-hidden="true"></i>
+                En charger plus
+            </button>
+        </div>
     </section>
 {% endblock %}

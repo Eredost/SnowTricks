@@ -1,0 +1,19 @@
+<div class="trick-card">
+
+    <a href="#" class="trick-card__image">
+        <img src="{{ asset('uploads/figure-placeholder.jpg') }}" alt="">
+    </a>
+
+    <div class="trick-card__body">
+        <h3 class="trick-card__name">
+            <a href="#">{{ trick.name }}</a>
+        </h3>
+
+        {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+            <div class="trick-card__actions">
+                <i class="fa fa-pencil" aria-hidden="true"></i>
+                <i class="fa fa-trash" aria-hidden="true"></i>
+            </div>
+        {% endif %}
+    </div>
+</div>
