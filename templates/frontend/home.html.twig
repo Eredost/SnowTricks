@@ -19,11 +19,15 @@
             {% for trick in tricks %}
                 {% include 'layouts/_trick-card.html.twig' with { trick } %}
             {% endfor %}
-
-            <button class="button tricks__load-more js-load-more">
-                <i class="fa fa-spinner" aria-hidden="true"></i>
-                En charger plus
-            </button>
         </div>
+
+        <button class="button tricks__load-more js-load-more">
+            <i class="fa fa-spinner" aria-hidden="true"></i>
+            En charger plus
+        </button>
+
+        <a href="#tricks">
+            <i class="fa fa-arrow-up tricks__arrow" aria-hidden="true"></i>
+        </a>
     </section>
 {% endblock %}

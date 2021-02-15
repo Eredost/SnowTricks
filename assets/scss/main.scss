@@ -2,6 +2,7 @@
 
 // Abstracts
 @import "abstracts/variables";
+@import "abstracts/animations";
 
 // Vendors
 @import "~reset-css/sass/reset";
@@ -15,6 +16,8 @@
 @import "layout/header";
 @import "layout/banner";
 @import "layout/tricks";
+@import "layout/footer";
 
 // Components
 @import "components/trick-card";
+@import "components/button";
