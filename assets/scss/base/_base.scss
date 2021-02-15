@@ -7,6 +7,16 @@ p {
   margin-bottom: 1em;
 }
 
+section {
+  padding: 2em 0;
+}
+
+.section-wrapper {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 10px;
+}
+
 .center {
   text-align: center;
 }
