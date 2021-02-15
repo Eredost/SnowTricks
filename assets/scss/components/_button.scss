@@ -1,0 +1,16 @@
+.button {
+  font-size: 1em;
+  cursor: pointer;
+  padding: 0.8em 1.2em;
+  color: $text-color-alt;
+  background-color: $brand-color;
+  border-radius: 7px;
+  border: 2px solid transparent;
+  transition: all $duration-fast;
+
+  &:hover {
+    border: 2px solid $brand-color;
+    color: $brand-color;
+    background-color: $text-color-alt;
+  }
+}

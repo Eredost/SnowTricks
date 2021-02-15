@@ -1,0 +1,9 @@
+.footer {
+  background-color: $footer-background-color;
+  padding: 1.8em 0;
+
+  &__copyrights {
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+}

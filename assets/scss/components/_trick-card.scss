@@ -1,6 +1,8 @@
 .trick-card {
   max-width: 400px;
   margin: 0 auto 2em;
+  border: 2px solid $text-color;
+  border-radius: 5px;
 
   &__image > img {
     display: block;
@@ -10,9 +12,23 @@
     object-position: center;
   }
 
+  &__body {
+    margin: 1em 0.3em;
+  }
+
+  &__name > a {
+    font-size: 0.8em;
+    color: $title-color;
+    transition: color $duration-fast;
+
+    &:hover {
+      color: $brand-color;
+    }
+  }
+
   @media all and (min-width: $breakpoint-small) {
-    flex: 1 0 200px;
-    max-width: 210px;
+    flex: 1 0 260px;
+    max-width: 270px;
     margin: 0 0.8em 2em;
 
     &__image > image {
