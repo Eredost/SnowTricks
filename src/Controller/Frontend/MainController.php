@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Frontend;
 
 use App\Repository\TrickRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -20,10 +20,8 @@ class MainController extends AbstractController
      */
     public function index(TrickRepository $trickRepository): Response
     {
-        $tricks = $trickRepository->findBy([], null, 15);
-
         return $this->render('frontend/home.html.twig', [
-            'tricks' => $tricks,
+            'tricksCount' => $trickRepository->countTricks(),
         ]);
     }
 }
