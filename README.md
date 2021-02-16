@@ -37,5 +37,4 @@ To set up the project, follow the steps below :
 
 ## Additional docs
 
--   [Kanban (Trello)](https://trello.com/b/UZ6AFII2/snowtricks)
 -   [UML diagrams](diagrams)

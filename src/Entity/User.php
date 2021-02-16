@@ -84,7 +84,7 @@ class User implements UserInterface
     private $isValidated;
 
     /**
-     * @ORM\OneToMany(targetEntity=Trick::class, mappedBy="user", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity=Trick::class, mappedBy="user")
      */
     private $tricks;
 
@@ -92,6 +92,11 @@ class User implements UserInterface
      * @ORM\OneToMany(targetEntity=Comment::class, mappedBy="user", orphanRemoval=true)
      */
     private $comments;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $token;
 
     public function __construct()
     {
@@ -265,6 +270,18 @@ class User implements UserInterface
     public function setPlainPassword(string $plainPassword): self
     {
         $this->plainPassword = $plainPassword;
+
+        return $this;
+    }
+
+    public function getToken(): ?string
+    {
+        return $this->token;
+    }
+
+    public function setToken(?string $token): self
+    {
+        $this->token = $token;
 
         return $this;
     }
