@@ -8,7 +8,7 @@ The application must be made in PHP using the Symfony framework.
 
 ## Installation
 
-Before you can download the project you must first have a PHP version at least 7.3X and a recent version of Composer.
+Before you can download the project you must first have a PHP version at least ^7.2.5 and a recent version of Composer.
 
 To set up the project, follow the steps below :
 
@@ -17,9 +17,10 @@ To set up the project, follow the steps below :
 3. Perform the command :
 
         composer install
-4. Create a new file ``.env.local`` and add the line below by changing the user's name and password as well as the name of the database.
+4. Create a new file ``.env.local`` in order to configure the DSN for the database as well as the mailing server. Gmail has been used, but you are free to use another [third-party service](https://symfony.com/doc/current/mailer.html#using-built-in-transports).
 
         DATABASE_URL=mysql://db_user:db_password@127.0.0.1:3306/db_name
+        MAILER_DSN=gmail+smtp://USERNAME:PASSWORD@default
 5. Finally, all you have to do is set up the database, associated tables and fixtures with the following commands :
 
         php bin/console doctrine:database:create
@@ -29,7 +30,7 @@ To set up the project, follow the steps below :
 
         composer require apache-pack
 
-   Or you can go directly to the pre-installed symfony server and go to the localhost address it has indicated :
+   Or you can use the pre-installed symfony server and go to the localhost address it has indicated :
 
         php bin/console server:run
 
