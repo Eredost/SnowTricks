@@ -3,36 +3,38 @@
 {% block title %}Communauté de Snowboarders{% endblock %}
 
 {% block body %}
-    <section class="banner">
-        <h2 class="banner__slogan">
-            Communauté de Snowboarders
-        </h2>
+    <div class="page">
+        <section class="banner">
+            <h2 class="banner__slogan">
+                Communauté de Snowboarders
+            </h2>
 
-        <a href="#tricks">
-            <i class="fa fa-arrow-down banner__arrow" aria-hidden="true"></i>
-        </a>
-    </section>
+            <a href="#tricks">
+                <i class="fa fa-arrow-down banner__arrow" aria-hidden="true"></i>
+            </a>
+        </section>
 
-    <section class="tricks" id="tricks">
-        <div class="section-wrapper" id="js-tricks-wrapper">
+        <section class="tricks" id="tricks">
+            <div class="section-wrapper" id="js-tricks-wrapper">
 
-        </div>
+            </div>
 
-        <button class="button tricks__load-more" id="js-load-more" data-is-authenticated="{{ app.user ? 'true' : 'false' }}" data-tricks-path="{{ path('api_tricks_list') }}" data-tricks-count="{{ tricksCount }}">
-            <i class="fa fa-spinner" aria-hidden="true"></i>
-            En charger plus
-        </button>
+            <button class="button tricks__load-more" id="js-load-more" data-is-authenticated="{{ app.user ? 'true' : 'false' }}" data-tricks-path="{{ path('api_tricks_list') }}" data-tricks-count="{{ tricksCount }}">
+                <i class="fa fa-spinner" aria-hidden="true"></i>
+                En charger plus
+            </button>
 
-        <div class="tricks__loading hide" id="js-loading">
-            <i class="fa fa-spinner" aria-hidden="true"></i>
-        </div>
+            <div class="tricks__loading hide" id="js-loading">
+                <i class="fa fa-spinner" aria-hidden="true"></i>
+            </div>
 
-        <a href="#tricks" class="hide" id="js-tricks-arrow">
-            <i class="fa fa-arrow-up tricks__arrow" aria-hidden="true"></i>
-        </a>
-    </section>
+            <a href="#tricks" class="hide" id="js-tricks-arrow">
+                <i class="fa fa-arrow-up tricks__arrow" aria-hidden="true"></i>
+            </a>
+        </section>
 
-    {% include 'layouts/_trick-card.html.twig' %}
+        {% include 'layouts/_trick-card.html.twig' %}
+    </div>
 {% endblock %}
 
 {% block javascripts %}

@@ -2,7 +2,10 @@
 
 namespace App\Controller;
 
+use App\Entity\User;
+use App\Form\RegistrationType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
@@ -35,11 +38,23 @@ class SecurityController extends AbstractController
      * @Route("/signup",
      *     name="app_signup")
      */
-    public function signup()
+    public function signup(Request $request)
     {
         if ($this->getUser()) {
             return $this->redirectToRoute('homepage');
         }
+
+        $user = new User();
+        $registrationForm = $this->createForm(RegistrationType::class, $user);
+        $registrationForm->handleRequest($request);
+
+        if ($registrationForm->isSubmitted() && $registrationForm->isValid()) {
+            // Todo: implement form submit
+        }
+
+        return $this->render('security/signup.html.twig', [
+            'registrationForm' => $registrationForm->createView(),
+        ]);
     }
 
     /**
