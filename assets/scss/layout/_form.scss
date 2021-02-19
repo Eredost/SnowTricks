@@ -1,0 +1,96 @@
+.form {
+  &__group {
+    margin-bottom: 1.3em;
+
+    &.hidden {
+      margin-bottom: 0;
+    }
+  }
+
+  &__label {
+    color: $title-color;
+    display: block;
+    text-transform: uppercase;
+    margin-bottom: 0.5em;
+  }
+
+  &__input {
+    display: block;
+    width: 100%;
+    border: none;
+    background-color: #fff;
+    box-shadow: 0 4px 7px rgba(0, 0, 0, 0.25);
+    padding: 0.7em 0.9em;
+  }
+
+  &__error {
+    margin: 0.2em 0 0;
+    color: $warning-color;
+
+    &.mb {
+      margin: 0 0 1em;
+      display: block;
+    }
+  }
+
+  textarea {
+    height: 200px;
+    resize: none;
+  }
+
+  &__checkbox {
+    display: block;
+    position: relative;
+    cursor: pointer;
+    margin: 0.3em 0;
+
+    .checkmark {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 20px;
+      width: 20px;
+      border-radius: 2px;
+      background-color: #eee;
+    }
+
+    input[type="checkbox"] {
+      opacity: 0;
+      cursor: pointer;
+    }
+
+    &:hover input[type="checkbox"] ~ .checkmark {
+      background-color: #ccc;
+    }
+
+    & input[type="checkbox"]:checked ~ .checkmark {
+      background-color: $brand-color;
+    }
+
+    .checkmark::after {
+      content: "";
+      position: absolute;
+      display: none;
+      left: 7px;
+      top: 2px;
+      width: 5px;
+      height: 10px;
+      border: solid white;
+      border-width: 0 3px 3px 0;
+      transform: rotate(45deg);
+    }
+
+    & input[type="checkbox"]:checked ~ .checkmark::after {
+      display: block;
+    }
+  }
+}
+
+.required::after {
+  content: "*";
+  color: #f93154;
+}
+
+label {
+  line-height: 1.65;
+}

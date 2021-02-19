@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Inscription{% endblock %}
+
+{% block body %}
+    <section class="login">
+        <div class="section-wrapper">
+            <h2 class="login__title">Inscription</h2>
+
+            {{ form_start(registrationForm) }}
+
+                <div class="form__group">
+                    {{ form_label(registrationForm.username, 'Nom d\'utilisateur', {'label_attr': {'class': 'form__label'}}) }}
+                    {{ form_widget(registrationForm.username, {'attr': {'class': 'form__input'}}) }}
+                    <div class="form__error">
+                        {{ form_errors(registrationForm.username) }}
+                    </div>
+                </div>
+
+                <div class="form__group">
+                    {{ form_label(registrationForm.email, 'Adresse email', {'label_attr': {'class': 'form__label'}}) }}
+                    {{ form_widget(registrationForm.email, {'attr': {'class': 'form__input'}}) }}
+                    <div class="form__error">
+                        {{ form_errors(registrationForm.email) }}
+                    </div>
+                </div>
+
+                <div class="form__group">
+                    {{ form_label(registrationForm.plainPassword, 'Mot de passe', {'label_attr': {'class': 'form__label'}}) }}
+                    {{ form_widget(registrationForm.plainPassword, {'attr': {'class': 'form__input'}}) }}
+                    <div class="form__error">
+                        {{ form_errors(registrationForm.plainPassword) }}
+                    </div>
+                </div>
+
+                <input type="submit" class="button form__submit" value="Créer un compte">
+            {{ form_end(registrationForm) }}
+
+            <div class="login__links">
+                <a href="{{ path('app_login') }}">Se connecter</a>
+            </div>
+        </div>
+    </section>
+{% endblock %}
