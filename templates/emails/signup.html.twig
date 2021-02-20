@@ -6,6 +6,8 @@
 <p><code>{{ email.to[0].address }}</code></p>
 
 <p>
-    <a href="#">Cliquez ici pour activer votre compte</a>
-    (ce lien est valide jusqu'à {{ expiration_date|date('F jS') }})
+    <a href="{{ absolute_url(path('user_validation', {'token': user.token, 'email': user.email})) }}">
+        Cliquez ici pour activer votre compte
+    </a>
+    (ce lien est valide 24 heures)
 </p>
