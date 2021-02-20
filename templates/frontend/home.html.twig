@@ -5,9 +5,20 @@
 {% block body %}
     <div class="page">
         <section class="banner">
-            <h2 class="banner__slogan">
-                Communauté de Snowboarders
-            </h2>
+            <div>
+                <h2 class="banner__slogan">
+                    Communauté de Snowboarders
+                </h2>
+
+                {% for label, messages in app.flashes(['success', 'warning']) %}
+                    {% for message in messages %}
+                        <div class="alert {{ label }}">
+                            <i class="fa fa-times alert__close" aria-hidden="true"></i>
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endfor %}
+            </div>
 
             <a href="#tricks">
                 <i class="fa fa-arrow-down banner__arrow" aria-hidden="true"></i>

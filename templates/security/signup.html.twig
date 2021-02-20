@@ -7,6 +7,15 @@
         <div class="section-wrapper">
             <h2 class="login__title">Inscription</h2>
 
+            {% for label, messages in app.flashes(['success', 'warning']) %}
+                {% for message in messages %}
+                    <div class="alert {{ label }}">
+                        <i class="fa fa-times alert__close" aria-hidden="true"></i>
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            {% endfor %}
+
             {{ form_start(registrationForm) }}
 
                 <div class="form__group">

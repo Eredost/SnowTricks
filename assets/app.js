@@ -16,11 +16,26 @@ let app = {
         // Handle navbar menu on mobile
         let navbarToggleElement = document.querySelector('.js-navbar-toggle');
         navbarToggleElement.addEventListener('click', app.handleNavbarToggleClick);
+
+        // Handle alert closes
+        let alertCloseElements = document.querySelectorAll('.alert__close');
+        for (let element of alertCloseElements) {
+            element.addEventListener('click', app.handleAlertCloseClick);
+        }
     },
 
     handleNavbarToggleClick: function () {
         let navbarMenuElement = document.querySelector('.js-navbar-menu');
         navbarMenuElement.classList.toggle('visible');
+    },
+
+    handleAlertCloseClick: function (event) {
+        let parentElement = event.currentTarget.parentNode;
+
+        parentElement.classList.add('hidden');
+        setTimeout(function () {
+            parentElement.remove();
+        }, 300)
     }
 };
 
