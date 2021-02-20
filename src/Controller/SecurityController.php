@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\RegistrationType;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -37,8 +38,16 @@ class SecurityController extends AbstractController
     /**
      * @Route("/signup",
      *     name="app_signup")
+     *
+     * @param Request                $request
+     * @param EntityManagerInterface $manager
+     *
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response
+     *
+     * @throws \Doctrine\ORM\ORMException
+     * @throws \Doctrine\ORM\OptimisticLockException
      */
-    public function signup(Request $request)
+    public function signup(Request $request, EntityManagerInterface $manager)
     {
         if ($this->getUser()) {
             return $this->redirectToRoute('homepage');
@@ -49,7 +58,12 @@ class SecurityController extends AbstractController
         $registrationForm->handleRequest($request);
 
         if ($registrationForm->isSubmitted() && $registrationForm->isValid()) {
-            // Todo: implement form submit
+            $manager->persist($user);
+            $manager->flush();
+
+            $this->addFlash('success', 'Votre compte a été créé avec succès. Cependant, avant de pouvoir vous connecter, vous devez valider votre adresse email à l\'aide de l\'email qui vous a été envoyé');
+
+            return $this->redirectToRoute('homepage');
         }
 
         return $this->render('security/signup.html.twig', [

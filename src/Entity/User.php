@@ -106,6 +106,18 @@ class User implements UserInterface
         $this->createdAt   = new \DateTime();
     }
 
+    /**
+     * Generate a new random token
+     *
+     * @throws \Exception
+     */
+    public function generateToken(): void
+    {
+        $token = bin2hex(random_bytes(32)) . '_' . (new \DateTime('+1 days'))->getTimestamp();
+
+        $this->token = $token;
+    }
+
     public function getId(): ?int
     {
         return $this->id;

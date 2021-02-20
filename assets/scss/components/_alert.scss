@@ -1,0 +1,15 @@
+.alert {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  max-width: 450px;
+  padding: 1em;
+
+  &.success {
+    background-color: $success-color;
+  }
+
+  &.warning {
+    background-color: $warning-color;
+  }
+}
