@@ -1,9 +1,21 @@
 .alert {
-  position: absolute;
-  right: 10px;
-  bottom: 10px;
+  position: relative;
   max-width: 450px;
+  margin: 0.5em auto;
   padding: 1em;
+  color: #fff;
+  transition: opacity 0.3s;
+
+  &__close {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    cursor: pointer;
+  }
+
+  &.hidden {
+    opacity: 0;
+  }
 
   &.success {
     background-color: $success-color;
