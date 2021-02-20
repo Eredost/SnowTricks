@@ -120,7 +120,8 @@ class User implements UserInterface
     {
         $expirationDate = explode('_', $token)[1];
 
-        if ($token !== $this->token
+        if (empty($this->token)
+            || $token !== $this->token
             || $expirationDate < (new \DateTime())->getTimestamp()) {
             return false;
         }
