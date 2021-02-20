@@ -4,6 +4,7 @@
 namespace App\Service;
 
 
+use App\Entity\User;
 use Symfony\Bridge\Twig\Mime\TemplatedEmail;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Address;
@@ -13,32 +14,36 @@ class Mailer
     /** @var MailerInterface $mailer */
     private $mailer;
 
+    /** @var string $applicationEmail */
+    private $applicationEmail;
+
     /**
      * Mailer constructor.
      *
      * @param MailerInterface $mailer
      */
-    public function __construct(MailerInterface $mailer)
+    public function __construct(MailerInterface $mailer, $applicationEmail)
     {
         $this->mailer = $mailer;
+        $this->applicationEmail = $applicationEmail;
     }
 
     /**
      * Sends an email to validate a new account
      *
-     * @param string $to The recipient of the email
+     * @param User $user
      *
      * @throws \Symfony\Component\Mailer\Exception\TransportExceptionInterface
      */
-    public function signup(string $to): void
+    public function signup(User $user): void
     {
         $email = (new TemplatedEmail())
-            ->from('michael.coutin62@gmail.com')
-            ->to(new Address($to))
+            ->from($this->applicationEmail)
+            ->to(new Address($user->getEmail()))
             ->subject('Bienvenue dans la communauté SnowTricks !')
             ->htmlTemplate('emails/signup.html.twig')
             ->context([
-                'expiration_date' => new \DateTime('+1 days'),
+                'user' => $user,
             ])
         ;
 
@@ -48,19 +53,19 @@ class Mailer
     /**
      * Sends an email to reset the password
      *
-     * @param string $to The recipient of the email
+     * @param User $user
      *
      * @throws \Symfony\Component\Mailer\Exception\TransportExceptionInterface
      */
-    public function passwordReset(string $to): void
+    public function passwordReset(User $user): void
     {
         $email = (new TemplatedEmail())
-            ->from('michael.coutin62@gmail.com')
-            ->to(new Address($to))
+            ->from($this->applicationEmail)
+            ->to(new Address($user->getEmail()))
             ->subject('Réinitialisation du mot de passe')
             ->htmlTemplate('emails/reset-password.html.twig')
             ->context([
-                'expiration_date' => new \DateTime('+1 days'),
+                'user' => $user,
             ])
         ;
 

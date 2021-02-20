@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\RegistrationType;
+use App\Service\Mailer;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -41,13 +42,11 @@ class SecurityController extends AbstractController
      *
      * @param Request                $request
      * @param EntityManagerInterface $manager
+     * @param Mailer                 $mailer
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response
-     *
-     * @throws \Doctrine\ORM\ORMException
-     * @throws \Doctrine\ORM\OptimisticLockException
      */
-    public function signup(Request $request, EntityManagerInterface $manager)
+    public function signup(Request $request, EntityManagerInterface $manager, Mailer $mailer)
     {
         if ($this->getUser()) {
             return $this->redirectToRoute('homepage');
@@ -58,10 +57,13 @@ class SecurityController extends AbstractController
         $registrationForm->handleRequest($request);
 
         if ($registrationForm->isSubmitted() && $registrationForm->isValid()) {
+            $user->generateToken();
+            $mailer->signup($user);
+
             $manager->persist($user);
             $manager->flush();
 
-            $this->addFlash('success', 'Votre compte a été créé avec succès. Cependant, avant de pouvoir vous connecter, vous devez valider votre adresse email à l\'aide de l\'email qui vous a été envoyé');
+            $this->addFlash('success', 'Votre compte a été créé avec succès. Un email vous a été envoyé afin de valider votre adresse email.');
 
             return $this->redirectToRoute('homepage');
         }

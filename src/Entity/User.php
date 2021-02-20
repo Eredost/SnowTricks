@@ -108,14 +108,24 @@ class User implements UserInterface
 
     /**
      * Generate a new random token
-     *
-     * @throws \Exception
      */
     public function generateToken(): void
     {
-        $token = bin2hex(random_bytes(32)) . '_' . (new \DateTime('+1 days'))->getTimestamp();
+        $token = bin2hex(random_bytes(24)) . '_' . (new \DateTime('+1 days'))->getTimestamp();
 
         $this->token = $token;
+    }
+
+    public function validateToken(string $token): bool
+    {
+        $expirationDate = explode('_', $token)[1];
+
+        if ($token !== $this->token
+            || $expirationDate < (new \DateTime())->getTimestamp()) {
+            return false;
+        }
+
+        return true;
     }
 
     public function getId(): ?int
