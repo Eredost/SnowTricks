@@ -4,6 +4,8 @@ namespace App\Controller;
 
 use App\Entity\User;
 use App\Form\RegistrationType;
+use App\Form\UserType;
+use App\Repository\UserRepository;
 use App\Service\Mailer;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -40,11 +42,13 @@ class SecurityController extends AbstractController
      * @Route("/signup",
      *     name="app_signup")
      *
-     * @param Request                $request
+     * @param Request $request
      * @param EntityManagerInterface $manager
-     * @param Mailer                 $mailer
+     * @param Mailer $mailer
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response
+     *
+     * @throws \Symfony\Component\Mailer\Exception\TransportExceptionInterface
      */
     public function signup(Request $request, EntityManagerInterface $manager, Mailer $mailer)
     {
@@ -77,8 +81,44 @@ class SecurityController extends AbstractController
      * @Route("/logout",
      *     name="app_logout")
      */
-    public function logout()
+    public function logout(): void
     {
         throw new \LogicException('This method can be blank - it will be intercepted by the logout key on your firewall.');
+    }
+
+    /**
+     * @Route("/ask-reset",
+     *     name="app_ask-reset")
+     *
+     * @param Request                $request
+     * @param UserRepository         $repository
+     * @param Mailer                 $mailer
+     * @param EntityManagerInterface $manager
+     *
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response
+     *
+     * @throws \Symfony\Component\Mailer\Exception\TransportExceptionInterface
+     */
+    public function askReset(Request $request, UserRepository $repository, Mailer $mailer, EntityManagerInterface $manager)
+    {
+        $userForm = $this->createForm(UserType::class);
+        $userForm->handleRequest($request);
+
+        if ($userForm->isSubmitted() && $userForm->isValid()) {
+            $username = $userForm->getData()['username'];
+            $user = $repository->findOneBy(['username' => $username]);
+
+            $user->generateToken();
+            $manager->flush();
+            $mailer->passwordReset($user);
+
+            $this->addFlash('success', 'Un email contenant un lien de réinitialisation de mot de passe a été envoyé à l\'adresse email associée à ce nom d\'utilisateur');
+
+            return $this->redirectToRoute('app_ask-reset');
+        }
+
+        return $this->render('security/ask-reset.html.twig', [
+            'userForm' => $userForm->createView(),
+        ]);
     }
 }
