@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ trick.name }}{% endblock %}
+
+{% block body %}
+    <div class="page">
+        <section class="trick-details">
+
+            <div class="trick-details__banner">
+                <img src="{{ asset('uploads/figure-placeholder.jpg') }}" alt="">
+                <h2 class="trick-details__name">{{ trick.name }}</h2>
+            </div>
+
+            <div class="trick-details__medias">
+                <button class="button">Voir les médias</button>
+            </div>
+
+            <div class="trick-details__body">
+                <p class="trick-details__description">{{ trick.description }}</p>
+
+                <div class="trick-details__data">
+                    <p class="trick-details__creation-date">
+                        Créer le
+                        {{ trick.createdAt|date("d/m/Y") }}
+                    </p>
+
+                    <p class="trick-details__group">
+                        Catégorie :
+                        {{ trick.category.name }}
+                    </p>
+
+                    {% if trick.updatedAt %}
+                        <p class="trick-details__update-date">
+                            Mis à jour le
+                            {{ trick.updatedAt|date("d/m/Y") }}
+                        </p>
+                    {% endif %}
+                </div>
+            </div>
+        </section>
+    </div>
+{% endblock %}
+

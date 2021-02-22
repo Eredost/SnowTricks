@@ -11,6 +11,7 @@ let tricksList = {
         // Handle click on Load-more button
         tricksList.loadMoreButton = document.getElementById('js-load-more');
         tricksList.loadMoreButton.addEventListener('click', tricksList.handleLoadMoreClick);
+        tricksList.linkTarget = tricksList.loadMoreButton.dataset.targetLink;
 
         let event = document.createEvent('HTMLEvents');
         event.initEvent('click', false, true);
@@ -58,6 +59,11 @@ let tricksList = {
 
             let trickTitle = cloneElement.querySelector('.trick-card__name > a');
             trickTitle.textContent = trick.name;
+
+            let linkElements = cloneElement.querySelectorAll('.trick__link');
+            for (let link of linkElements) {
+                link.href = tricksList.linkTarget.replace(/0$/, trick.id);
+            }
 
             if (isAuthenticated === 'false') {
                 cloneElement.querySelector('.trick-card__actions').remove();
