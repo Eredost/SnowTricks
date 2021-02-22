@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\User;
+use App\Form\NewPasswordType;
 use App\Form\RegistrationType;
 use App\Form\UserType;
 use App\Repository\UserRepository;
@@ -88,7 +89,8 @@ class SecurityController extends AbstractController
 
     /**
      * @Route("/ask-reset",
-     *     name="app_ask-reset")
+     *     name="app_ask-reset",
+     *     methods={"GET", "POST"})
      *
      * @param Request                $request
      * @param UserRepository         $repository
@@ -119,6 +121,48 @@ class SecurityController extends AbstractController
 
         return $this->render('security/ask-reset.html.twig', [
             'userForm' => $userForm->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/reset-password",
+     *     name="app_reset-password",
+     *     methods={"GET", "POST"})
+     *
+     * @param Request                $request
+     * @param UserRepository         $repository
+     * @param EntityManagerInterface $manager
+     *
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|Response
+     */
+    public function resetPassword(Request $request, UserRepository $repository, EntityManagerInterface $manager)
+    {
+        $token = $request->query->get('token');
+        $email = $request->query->get('email');
+
+        $user = $repository->findOneBy(['email' => $email]);
+        if ($user === null
+            || !$user->getIsValidated()
+            || !$user->validateToken($token)) {
+            $this->addFlash('warning', 'Une erreur est survenue lors de la réinitialisation du mot de passe, si le problème persiste, veuillez contacter l\'administrateur du site');
+
+            return $this->redirectToRoute('homepage');
+        }
+
+        $newPasswordForm = $this->createForm(NewPasswordType::class, $user);
+        $newPasswordForm->handleRequest($request);
+
+        if ($newPasswordForm->isSubmitted() && $newPasswordForm->isValid()) {
+            $user->setToken(null);
+            $manager->flush();
+
+            $this->addFlash('success', 'Votre mot de passe a été modifié avec succès');
+
+            return $this->redirectToRoute('homepage');
+        }
+
+        return $this->render('security/reset-password.html.twig', [
+            'newPasswordForm' => $newPasswordForm->createView(),
         ]);
     }
 }
