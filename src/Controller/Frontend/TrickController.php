@@ -17,14 +17,13 @@ use Symfony\Component\Routing\Annotation\Route;
 class TrickController extends AbstractController
 {
     /**
-     * @Route("/{id}",
+     * @Route("/{slug}",
      *     name="show",
-     *     requirements={"id" = "\d+"},
      *     methods={"GET", "POST"})
      */
-    public function show($id, TrickRepository $repository)
+    public function show($slug, TrickRepository $repository)
     {
-        if (!$trick = $repository->getTrickWithCategoryAndMedias($id)) {
+        if (!$trick = $repository->getTrickWithCategoryAndMedias($slug)) {
             throw new NotFoundHttpException('Cette figure n\'existe pas');
         }
 

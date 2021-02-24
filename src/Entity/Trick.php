@@ -17,6 +17,10 @@ use Symfony\Component\Validator\Constraints as Assert;
  *     fields = "name",
  *     message = "Ce nom de figure est déjà utilisé"
  * )
+ * @UniqueEntity(
+ *     fields = "slug",
+ *     message = "Ce nom de figure est déjà utilisé"
+ * )
  */
 class Trick
 {
@@ -42,6 +46,12 @@ class Trick
      * @Groups({"list_tricks"})
      */
     private $name;
+
+    /**
+     * @ORM\Column(type="string", length=120, unique=true)
+     * @Groups({"list_tricks"})
+     */
+    private $slug;
 
     /**
      * @ORM\Column(type="text")
@@ -96,6 +106,18 @@ class Trick
     public function setName(string $name): self
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(string $slug): self
+    {
+        $this->slug = $slug;
 
         return $this;
     }
