@@ -120,13 +120,9 @@ class User implements UserInterface
     {
         $expirationDate = explode('_', $token)[1];
 
-        if (empty($this->token)
-            || $token !== $this->token
-            || $expirationDate < (new \DateTime())->getTimestamp()) {
-            return false;
-        }
-
-        return true;
+        return !empty($this->token)
+            && $token === $this->token
+            && $expirationDate >= (new \DateTime())->getTimestamp();
     }
 
     public function getId(): ?int

@@ -30,7 +30,7 @@
 
             </div>
 
-            <button class="button tricks__load-more" id="js-load-more" data-is-authenticated="{{ app.user ? 'true' : 'false' }}" data-tricks-path="{{ path('api_tricks_list') }}" data-tricks-count="{{ tricksCount }}" data-target-link="{{ path('trick_show', {'id': 0}) }}">
+            <button class="button tricks__load-more" id="js-load-more" data-is-authenticated="{{ app.user ? 'true' : 'false' }}" data-tricks-path="{{ path('api_tricks_list') }}" data-tricks-count="{{ tricksCount }}" data-target-link="{{ path('trick_show', {'slug': 'slug'}) }}">
                 <i class="fa fa-spinner" aria-hidden="true"></i>
                 En charger plus
             </button>

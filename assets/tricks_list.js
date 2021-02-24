@@ -62,7 +62,7 @@ let tricksList = {
 
             let linkElements = cloneElement.querySelectorAll('.trick__link');
             for (let link of linkElements) {
-                link.href = tricksList.linkTarget.replace(/0$/, trick.id);
+                link.href = tricksList.linkTarget.replace(/slug$/, trick.slug);
             }
 
             if (isAuthenticated === 'false') {

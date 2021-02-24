@@ -28,7 +28,7 @@ class TrickRepository extends ServiceEntityRepository
         ;
     }
 
-    public function getTrickWithCategoryAndMedias(int $trickId)
+    public function getTrickWithCategoryAndMedias(string $trickSlug)
     {
         return $this->createQueryBuilder('t')
             ->select('t')
@@ -36,8 +36,8 @@ class TrickRepository extends ServiceEntityRepository
             ->addSelect('c')
             ->leftJoin('t.media', 'm')
             ->addSelect('m')
-            ->andWhere('t.id = :trickId')
-            ->setParameter('trickId', $trickId)
+            ->andWhere('t.slug = :trickSlug')
+            ->setParameter('trickSlug', $trickSlug)
             ->getQuery()
             ->getOneOrNullResult()
         ;
