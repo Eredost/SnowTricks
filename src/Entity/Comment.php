@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Entity\Traits\TimestampableTrait;
 use App\Repository\CommentRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -30,12 +31,14 @@ class Comment
      *     max = 500,
      *     maxMessage = "Le contenu du commentaire ne peut pas dépasser {{ limit }} caractères"
      * )
+     * @Groups({"list_comments"})
      */
     private $content;
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="comments")
      * @ORM\JoinColumn(nullable=false)
+     * @Groups({"list_comments"})
      */
     private $user;
 

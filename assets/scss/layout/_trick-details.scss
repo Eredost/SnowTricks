@@ -72,6 +72,31 @@
     background-color: #0d47a1;
   }
 
+  &__comments {
+    max-width: 900px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  &__medium-title {
+    font-size: 1.2em;
+    margin: 1.5em 0;
+  }
+
+  &__comment-form {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 0 10px;
+
+    & .form__label {
+      text-align: left;
+    }
+
+    & .form__input {
+      height: 120px;
+    }
+  }
+
   @media all and (min-width: $breakpoint-small) {
     &__banner {
       height: 400px;

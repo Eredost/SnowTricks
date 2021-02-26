@@ -37,7 +37,61 @@
                     {% endif %}
                 </div>
             </div>
+
+            <div class="trick-details__comments">
+                <h3 class="trick-details__medium-title">
+                    Ajouter un commentaire
+                </h3>
+
+                {% for label, messages in app.flashes(['success', 'warning']) %}
+                    {% for message in messages %}
+                        <div class="alert {{ label }}">
+                            <i class="fa fa-times alert__close" aria-hidden="true"></i>
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endfor %}
+
+                {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                    {{ form_start(newCommentForm, {'attr': {'class': 'form trick-details__comment-form'}}) }}
+
+                    <div class="form__group">
+                        {{ form_label(newCommentForm.content, 'Message', {'label_attr': {'class': 'form__label'}}) }}
+                        {{ form_widget(newCommentForm.content, {'attr': {'class': 'form__input', 'placeholder': 'Votre message...'}}) }}
+                        <div class="form__error">
+                            {{ form_errors(newCommentForm.content) }}
+                        </div>
+                    </div>
+
+                    <input type="submit" class="button form__submit" value="Ajouter un commentaire">
+                    {{ form_end(newCommentForm) }}
+                {% else %}
+                    <p>Vous devez être connecté pour pouvoir laisser un commentaire</p>
+                {% endif %}
+
+                <h3 class="trick-details__medium-title">
+                    {{ commentsCount }} commentaire(s)
+                </h3>
+
+                <div id="js-comments-wrapper">
+
+                </div>
+
+                <button class="button tricks__load-more" id="js-load-more" data-comments-path="{{ path('api_tricks_comments', {'trickId': trick.id}) }}" data-comments-count="{{ commentsCount }}">
+                    <i class="fa fa-spinner" aria-hidden="true"></i>
+                    En charger plus
+                </button>
+
+                <div class="tricks__loading hide" id="js-loading">
+                    <i class="fa fa-spinner" aria-hidden="true"></i>
+                </div>
+            </div>
         </section>
     </div>
+    {% include 'layouts/_comment.html.twig' %}
 {% endblock %}
 
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('comments_list') }}
+{% endblock %}
