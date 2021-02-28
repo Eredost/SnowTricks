@@ -68,11 +68,6 @@ class Trick
     private $description;
 
     /**
-     * @ORM\OneToMany(targetEntity=Media::class, mappedBy="trick", orphanRemoval=true)
-     */
-    private $media;
-
-    /**
      * @ORM\ManyToOne(targetEntity=Category::class, inversedBy="tricks")
      * @ORM\JoinColumn(nullable=false)
      */
@@ -88,11 +83,22 @@ class Trick
      */
     private $comments;
 
+    /**
+     * @ORM\OneToMany(targetEntity=TrickVideo::class, mappedBy="trick", orphanRemoval=true)
+     */
+    private $trickVideos;
+
+    /**
+     * @ORM\OneToMany(targetEntity=TrickImage::class, mappedBy="trick", orphanRemoval=true)
+     */
+    private $trickImages;
+
     public function __construct()
     {
-        $this->media     = new ArrayCollection();
         $this->comments  = new ArrayCollection();
         $this->createdAt = new \DateTime();
+        $this->trickVideos = new ArrayCollection();
+        $this->trickImages = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -132,36 +138,6 @@ class Trick
     public function setDescription(string $description): self
     {
         $this->description = $description;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Media[]
-     */
-    public function getMedia(): Collection
-    {
-        return $this->media;
-    }
-
-    public function addMedium(Media $medium): self
-    {
-        if (!$this->media->contains($medium)) {
-            $this->media[] = $medium;
-            $medium->setTrick($this);
-        }
-
-        return $this;
-    }
-
-    public function removeMedium(Media $medium): self
-    {
-        if ($this->media->removeElement($medium)) {
-            // set the owning side to null (unless already changed)
-            if ($medium->getTrick() === $this) {
-                $medium->setTrick(null);
-            }
-        }
 
         return $this;
     }
@@ -214,6 +190,66 @@ class Trick
             // set the owning side to null (unless already changed)
             if ($comment->getTrick() === $this) {
                 $comment->setTrick(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|TrickVideo[]
+     */
+    public function getTrickVideos(): Collection
+    {
+        return $this->trickVideos;
+    }
+
+    public function addTrickVideo(TrickVideo $trickVideo): self
+    {
+        if (!$this->trickVideos->contains($trickVideo)) {
+            $this->trickVideos[] = $trickVideo;
+            $trickVideo->setTrick($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTrickVideo(TrickVideo $trickVideo): self
+    {
+        if ($this->trickVideos->removeElement($trickVideo)) {
+            // set the owning side to null (unless already changed)
+            if ($trickVideo->getTrick() === $this) {
+                $trickVideo->setTrick(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|TrickImage[]
+     */
+    public function getTrickImages(): Collection
+    {
+        return $this->trickImages;
+    }
+
+    public function addTrickImage(TrickImage $trickImage): self
+    {
+        if (!$this->trickImages->contains($trickImage)) {
+            $this->trickImages[] = $trickImage;
+            $trickImage->setTrick($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTrickImage(TrickImage $trickImage): self
+    {
+        if ($this->trickImages->removeElement($trickImage)) {
+            // set the owning side to null (unless already changed)
+            if ($trickImage->getTrick() === $this) {
+                $trickImage->setTrick(null);
             }
         }
 

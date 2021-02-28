@@ -9,33 +9,49 @@
 
             {{ form_start(newTrickForm, {'attr': {'class': 'form'}}) }}
 
-            <div class="form__group">
-                {{ form_label(newTrickForm.name, 'Nom de la figure', {'label_attr': {'class': 'form__label'}}) }}
-                {{ form_widget(newTrickForm.name, {'attr': {'class': 'form__input'}}) }}
-                <div class="form__error">
-                    {{ form_errors(newTrickForm.name) }}
+                <div class="form__group">
+                    {{ form_label(newTrickForm.name, 'Nom de la figure', {'label_attr': {'class': 'form__label'}}) }}
+                    {{ form_widget(newTrickForm.name, {'attr': {'class': 'form__input'}}) }}
+                    <div class="form__error">
+                        {{ form_errors(newTrickForm.name) }}
+                    </div>
                 </div>
-            </div>
 
-            <div class="form__group">
-                {{ form_label(newTrickForm.description, 'Description', {'label_attr': {'class': 'form__label'}}) }}
-                {{ form_widget(newTrickForm.description, {'attr': {'class': 'form__input'}}) }}
-                <div class="form__error">
-                    {{ form_errors(newTrickForm.description) }}
+                <div class="form__group">
+                    {{ form_label(newTrickForm.description, 'Description', {'label_attr': {'class': 'form__label'}}) }}
+                    {{ form_widget(newTrickForm.description, {'attr': {'class': 'form__input'}}) }}
+                    <div class="form__error">
+                        {{ form_errors(newTrickForm.description) }}
+                    </div>
                 </div>
-            </div>
 
-            <div class="form__group">
-                {{ form_label(newTrickForm.category, 'Catégorie', {'label_attr': {'class': 'form__label'}}) }}
-                {{ form_widget(newTrickForm.category, {'attr': {'class': 'form__input'}}) }}
-                <div class="form__error">
-                    {{ form_errors(newTrickForm.category) }}
+                <div class="form__group">
+                    {{ form_label(newTrickForm.images, 'Images', {'label_attr': {'class': 'form__label'}}) }}
+
+                    {{ form_widget(newTrickForm.images) }}
+
+                    <button class="button small new_trick_media" type="button">
+                        <i class="fa fa-plus" aria-hidden="true"></i>
+                        Ajouter une image
+                    </button>
                 </div>
-            </div>
 
-            <input type="submit" class="button form__submit" value="Ajouter">
+                <div class="form__group">
+                    {{ form_label(newTrickForm.category, 'Catégorie', {'label_attr': {'class': 'form__label'}}) }}
+                    {{ form_widget(newTrickForm.category, {'attr': {'class': 'form__input'}}) }}
+                    <div class="form__error">
+                        {{ form_errors(newTrickForm.category) }}
+                    </div>
+                </div>
+
+                <input type="submit" class="button form__submit" value="Ajouter">
             {{ form_end(newTrickForm) }}
 
         </div>
     </section>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    {{ encore_entry_script_tags('trick_collection') }}
 {% endblock %}

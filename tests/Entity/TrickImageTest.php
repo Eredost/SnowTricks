@@ -4,22 +4,21 @@
 namespace App\Tests\Entity;
 
 
-use App\Entity\Media;
 use App\Entity\Trick;
+use App\Entity\TrickImage;
 use App\Tests\Entity\Traits\AssertsTrait;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
-class MediaTest extends KernelTestCase
+class TrickImageTest extends KernelTestCase
 {
     use AssertsTrait;
 
-    protected function getEntity(): Media
+    protected function getEntity(): TrickImage
     {
-        return (new Media())
-            ->setSrc('https://www.youtube.com/watch?v=dQw4w9WgXcQ')
-            ->setType('video')
+        return (new TrickImage())
+            ->setSrc('/upload/figure-placeholder.png')
             ->setTrick(new Trick())
-        ;
+            ;
     }
 
     public function testValidEntity(): void
@@ -35,15 +34,5 @@ class MediaTest extends KernelTestCase
     public function testInvalidLengthSrc(): void
     {
         $this->assertHasErrors($this->getEntity()->setSrc(str_repeat('a', 256)), 1);
-    }
-
-    public function testInvalidBlankType(): void
-    {
-        $this->assertHasErrors($this->getEntity()->setType(''), 1);
-    }
-
-    public function testInvalidLengthType(): void
-    {
-        $this->assertHasErrors($this->getEntity()->setType(str_repeat('a', 61)), 1);
     }
 }

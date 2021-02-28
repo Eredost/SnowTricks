@@ -23,6 +23,7 @@ Encore
     .addEntry('app', './assets/app.js')
     .addEntry('tricks_list', './assets/tricks_list.js')
     .addEntry('comments_list', './assets/comments_list.js')
+    .addEntry('trick_collection', './assets/trick_collection.js')
 
     // enables the Symfony UX Stimulus bridge (used in assets/bootstrap.js)
     .enableStimulusBridge('./assets/controllers.json')
