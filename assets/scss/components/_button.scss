@@ -8,6 +8,11 @@
   border: 2px solid transparent;
   transition: all $duration-fast;
 
+  &.small {
+    font-size: 0.9em;
+    padding: 0.6em 0.9em;
+  }
+
   &:hover {
     border: 2px solid $brand-color;
     color: $brand-color;

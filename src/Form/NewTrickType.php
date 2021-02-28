@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Trick;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CollectionType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
@@ -25,6 +26,19 @@ class NewTrickType extends AbstractType
         $builder
             ->add('name')
             ->add('description')
+            ->add('images', CollectionType::class, [
+                'label' => false,
+                'mapped'         => false,
+                'required'       => false,
+                'entry_type'     => NewImageType::class,
+                'entry_options'  => [
+                    'label' => false,
+                ],
+                'allow_add'      => true,
+                'allow_delete'   => true,
+                'prototype'      => true,
+                'prototype_name' => 'new_trick_image',
+            ])
             ->add('category')
             ->addEventListener(
                 FormEvents::POST_SUBMIT,
