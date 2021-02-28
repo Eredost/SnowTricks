@@ -3,14 +3,14 @@
 namespace App\Entity;
 
 use App\Entity\Traits\TimestampableTrait;
-use App\Repository\MediaRepository;
+use App\Repository\TrickVideoRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ORM\Entity(repositoryClass=MediaRepository::class)
+ * @ORM\Entity(repositoryClass=TrickVideoRepository::class)
  */
-class Media
+class TrickVideo
 {
     use TimestampableTrait;
 
@@ -30,23 +30,14 @@ class Media
      *     max = 255,
      *     maxMessage = "La source ne peut pas dépasser {{ limit }} caractères"
      * )
+     * @Assert\Url(
+     *     message = "L'url que vous avez saisie n'est pas correcte"
+     * )
      */
     private $src;
 
     /**
-     * @ORM\Column(type="string", length=60)
-     * @Assert\NotBlank(
-     *     message = "Le type de media ne peut pas être vide"
-     * )
-     * @Assert\Length(
-     *     max = 60,
-     *     maxMessage = "Le type de media ne peut pas dépasser {{ limit }} caractères"
-     * )
-     */
-    private $type;
-
-    /**
-     * @ORM\ManyToOne(targetEntity=Trick::class, inversedBy="media")
+     * @ORM\ManyToOne(targetEntity=Trick::class, inversedBy="trickVideos")
      * @ORM\JoinColumn(nullable=false)
      */
     private $trick;
@@ -69,18 +60,6 @@ class Media
     public function setSrc(string $src): self
     {
         $this->src = $src;
-
-        return $this;
-    }
-
-    public function getType(): ?string
-    {
-        return $this->type;
-    }
-
-    public function setType(string $type): self
-    {
-        $this->type = $type;
 
         return $this;
     }
