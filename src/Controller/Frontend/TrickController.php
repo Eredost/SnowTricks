@@ -7,6 +7,7 @@ namespace App\Controller\Frontend;
 use App\Entity\Comment;
 use App\Entity\Trick;
 use App\Form\NewCommentType;
+use App\Form\NewTrickType;
 use App\Repository\CommentRepository;
 use App\Repository\TrickRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -21,11 +22,43 @@ use Symfony\Component\Routing\Annotation\Route;
 class TrickController extends AbstractController
 {
     /**
+     * @Route("/new",
+     *     name="new",
+     *     methods={"GET", "POST"})
+     */
+    public function new(Request $request)
+    {
+        $trick = new Trick();
+        $newTrickForm = $this->createForm(NewTrickType::class, $trick);
+        $newTrickForm->handleRequest($request);
+
+        if ($newTrickForm->isSubmitted() && $newTrickForm->isValid()) {
+            $trick->setUser($this->getUser());
+            $manager = $this->getDoctrine()->getManager();
+            $manager->persist($trick);
+            $manager->flush();
+
+            return $this->redirectToRoute('trick_show', ['slug' => $trick->getSlug()]);
+        }
+
+        return $this->render('frontend/trick-add.html.twig', [
+            'newTrickForm' => $newTrickForm->createView(),
+        ]);
+    }
+
+    /**
      * @Route("/{slug}",
      *     name="show",
      *     methods={"GET", "POST"})
+     *
+     * @param string            $slug
+     * @param TrickRepository   $trickRepository
+     * @param CommentRepository $commentRepository
+     * @param Request           $request
+     *
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
-    public function show($slug, TrickRepository $trickRepository, CommentRepository $commentRepository, Request $request)
+    public function show(string $slug, TrickRepository $trickRepository, CommentRepository $commentRepository, Request $request)
     {
         if (!$trick = $trickRepository->getTrickWithCategoryAndMedias($slug)) {
             throw new NotFoundHttpException('Cette figure n\'existe pas');
