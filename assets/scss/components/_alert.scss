@@ -2,10 +2,11 @@
   position: relative;
   max-width: 450px;
   margin: 0.5em auto;
-  padding: 1em 1.5em;
+  padding: 1em 2em;
   line-height: 1.4;
   color: #fff;
   transition: opacity 0.3s;
+  border-radius: 7px;
 
   &__close {
     position: absolute;

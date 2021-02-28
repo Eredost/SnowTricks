@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Entity\Traits\TimestampableTrait;
 use App\Repository\TrickRepository;
+use App\Validator\UniqueSlug;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -43,6 +44,7 @@ class Trick
      *     max = 120,
      *     maxMessage = "Le nom ne peut pas dépasser {{ limit }} caractères"
      * )
+     * @UniqueSlug
      * @Groups({"list_tricks"})
      */
     private $name;
