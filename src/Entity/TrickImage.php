@@ -34,6 +34,16 @@ class TrickImage
     private $src;
 
     /**
+     * @Assert\File(
+     *     maxSize = "5M",
+     *     maxSizeMessage = "La taille du fichier est trop importante, celle-ci ne doit pas excéder {{ limit }} {{ suffix }}",
+     *     mimeTypes = {"image/png", "image/jpeg", "image/gif"},
+     *     mimeTypesMessage = "Le type de fichier est invalide, les extensions autorisées sont {{ types }}"
+     * )
+     */
+    private $file;
+
+    /**
      * @ORM\ManyToOne(targetEntity=Trick::class, inversedBy="trickImages")
      * @ORM\JoinColumn(nullable=false)
      */
@@ -57,6 +67,18 @@ class TrickImage
     public function setSrc(string $src): self
     {
         $this->src = $src;
+
+        return $this;
+    }
+
+    public function getFile()
+    {
+        return $this->file;
+    }
+
+    public function setFile($file): self
+    {
+        $this->file = $file;
 
         return $this;
     }
