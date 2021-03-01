@@ -7,6 +7,13 @@
     }
   }
 
+  &__closer {
+    display: block;
+    color: $warning-color;
+    margin-top: 0.5em;
+    text-align: right;
+  }
+
   &__label {
     color: $title-color;
     display: block;

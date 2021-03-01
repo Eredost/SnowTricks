@@ -28,11 +28,50 @@
                 <div class="form__group">
                     {{ form_label(newTrickForm.trickImages, 'Images', {'label_attr': {'class': 'form__label'}}) }}
 
-                    {{ form_widget(newTrickForm.trickImages) }}
+                    <ul class="trick-medias" data-prototype="{{ form_widget(newTrickForm.trickImages.vars.prototype.file)|e('html_attr') }}">
+                        <li class="form__group js-media-template hide">
+
+                            <a href="#" class="form__closer js-delete-media">Supprimer</a>
+                        </li>
+                        {% for image in newTrickForm.trickImages %}
+                            <li class="form__group">
+                                {{ form_widget(image.file) }}
+                                <div class="form__error">
+                                    {{ form_errors(image.file) }}
+                                </div>
+                                <a href="#" class="form__closer js-delete-media">Supprimer</a>
+                            </li>
+                        {% endfor %}
+                    </ul>
 
                     <button class="button small new_trick_media" type="button">
                         <i class="fa fa-plus" aria-hidden="true"></i>
                         Ajouter une image
+                    </button>
+                </div>
+
+                <div class="form__group">
+                    {{ form_label(newTrickForm.trickVideos, 'Videos (URL Embed)', {'label_attr': {'class': 'form__label'}}) }}
+
+                    <ul class="trick-medias" data-prototype="{{ form_widget(newTrickForm.trickVideos.vars.prototype.src)|e('html_attr') }}">
+                        <li class="form__group js-media-template hide">
+
+                            <a href="#" class="form__closer js-delete-media">Supprimer</a>
+                        </li>
+                        {% for video in newTrickForm.trickVideos %}
+                            <li class="form__group">
+                                {{ form_widget(video.src, {'attr': {'class': 'form__input'}}) }}
+                                <div class="form__error">
+                                    {{ form_errors(video.src) }}
+                                </div>
+                                <a href="#" class="form__closer js-delete-media">Supprimer</a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+
+                    <button class="button small new_trick_media" type="button">
+                        <i class="fa fa-plus" aria-hidden="true"></i>
+                        Ajouter une vidéo
                     </button>
                 </div>
 
