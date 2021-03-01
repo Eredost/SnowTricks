@@ -36,7 +36,6 @@ class NewTrickType extends AbstractType
                 'allow_add'      => true,
                 'allow_delete'   => true,
                 'prototype'      => true,
-                'prototype_name' => 'new_trick_image',
                 'by_reference'   => false,
             ])
             ->add('category')
