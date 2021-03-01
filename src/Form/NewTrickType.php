@@ -38,6 +38,18 @@ class NewTrickType extends AbstractType
                 'prototype'      => true,
                 'by_reference'   => false,
             ])
+            ->add('trickVideos', CollectionType::class, [
+                'label'          => false,
+                'required'       => false,
+                'entry_type'     => NewTrickVideoType::class,
+                'entry_options'  => [
+                    'label' => false,
+                ],
+                'allow_add'      => true,
+                'allow_delete'   => true,
+                'prototype'      => true,
+                'by_reference'   => false,
+            ])
             ->add('category')
             ->addEventListener(
                 FormEvents::POST_SUBMIT,

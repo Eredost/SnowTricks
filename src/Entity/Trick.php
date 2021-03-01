@@ -85,11 +85,13 @@ class Trick
 
     /**
      * @ORM\OneToMany(targetEntity=TrickVideo::class, mappedBy="trick", orphanRemoval=true, cascade="persist")
+     * @Assert\Valid
      */
     private $trickVideos;
 
     /**
      * @ORM\OneToMany(targetEntity=TrickImage::class, mappedBy="trick", orphanRemoval=true, cascade="persist")
+     * @Assert\Valid
      */
     private $trickImages;
 

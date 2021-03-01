@@ -33,6 +33,14 @@ class TrickImage
      */
     private $src;
 
+    /**
+     * @Assert\File(
+     *     maxSize = "2M",
+     *     maxSizeMessage = "La taille du fichier est trop importante, celle-ci ne doit pas excéder {{ limit }} {{ suffix }}",
+     *     mimeTypes = {"image/png", "image/jpeg", "image/gif"},
+     *     mimeTypesMessage = "Le type de fichier est invalide, les extensions autorisées sont {{ types }}"
+     * )
+     */
     private $file;
 
     /**
