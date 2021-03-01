@@ -17,6 +17,7 @@ let trickCollection = {
         let newForm = document.createElement('div');
         let count = wrapper.childElementCount;
 
+        prototype = prototype.replace(/__name__/g, count);
         newForm.innerHTML = prototype;
 
         wrapper.appendChild(newForm);

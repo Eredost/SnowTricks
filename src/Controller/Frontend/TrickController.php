@@ -10,6 +10,7 @@ use App\Form\NewCommentType;
 use App\Form\NewTrickType;
 use App\Repository\CommentRepository;
 use App\Repository\TrickRepository;
+use App\Service\FileUploader;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
@@ -28,7 +29,7 @@ class TrickController extends AbstractController
      *     name="new",
      *     methods={"GET", "POST"})
      */
-    public function new(Request $request, SluggerInterface $slugger)
+    public function new(Request $request, SluggerInterface $slugger, FileUploader $fileUploader)
     {
         $trick = new Trick();
         $newTrickForm = $this->createForm(NewTrickType::class, $trick);
@@ -38,19 +39,11 @@ class TrickController extends AbstractController
 
             if ($images = $newTrickForm->get('trickImages')->getData()) {
                 foreach ($images as $image) {
-
                     /** @var UploadedFile $imageFile */
                     $imageFile = $image->getFile();
 
                     if ($imageFile) {
-                        $originalFilename = pathinfo($imageFile->getClientOriginalName(), PATHINFO_FILENAME);
-                        $safeFilename = $slugger->slug($originalFilename);
-                        $newFilename = $safeFilename.'-'.uniqid('', true).'.'.$imageFile->guessExtension();
-
-                        $imageFile->move(
-                            $this->getParameter('trick_images_directory'),
-                            $newFilename
-                        );
+                        $newFilename = $fileUploader->upload($imageFile, $this->getParameter('trick_images_directory'));
                         $image->setSrc($newFilename);
                     }
                 }

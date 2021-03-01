@@ -7,6 +7,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\File;
 
 class NewTrickImageType extends AbstractType
 {
@@ -15,7 +16,18 @@ class NewTrickImageType extends AbstractType
         $builder
             ->add('file', FileType::class, [
                 'label'       => false,
-                'required'    => false,
+                'constraints' => [
+                    new File([
+                        'maxSize'          => '2M',
+                        'maxSizeMessage'   => 'La taille du fichier est trop importante, celle-ci ne doit pas excéder {{ limit }} {{ suffix }}',
+                        'mimeTypes'        => [
+                            'image/png',
+                            'image/jpeg',
+                            'image/gif',
+                        ],
+                        'mimeTypesMessage' => 'Le type de fichier est invalide, les extensions autorisées sont {{ types }}',
+                    ])
+                ],
             ])
         ;
     }
