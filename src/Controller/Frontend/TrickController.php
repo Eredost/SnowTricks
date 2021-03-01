@@ -11,9 +11,11 @@ use App\Form\NewTrickType;
 use App\Repository\CommentRepository;
 use App\Repository\TrickRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\String\Slugger\SluggerInterface;
 
 /**
  * @Route("/trick",
@@ -26,13 +28,34 @@ class TrickController extends AbstractController
      *     name="new",
      *     methods={"GET", "POST"})
      */
-    public function new(Request $request)
+    public function new(Request $request, SluggerInterface $slugger)
     {
         $trick = new Trick();
         $newTrickForm = $this->createForm(NewTrickType::class, $trick);
         $newTrickForm->handleRequest($request);
 
         if ($newTrickForm->isSubmitted() && $newTrickForm->isValid()) {
+
+            if ($images = $newTrickForm->get('trickImages')->getData()) {
+                foreach ($images as $image) {
+
+                    /** @var UploadedFile $imageFile */
+                    $imageFile = $image->getFile();
+
+                    if ($imageFile) {
+                        $originalFilename = pathinfo($imageFile->getClientOriginalName(), PATHINFO_FILENAME);
+                        $safeFilename = $slugger->slug($originalFilename);
+                        $newFilename = $safeFilename.'-'.uniqid('', true).'.'.$imageFile->guessExtension();
+
+                        $imageFile->move(
+                            $this->getParameter('trick_images_directory'),
+                            $newFilename
+                        );
+                        $image->setSrc($newFilename);
+                    }
+                }
+            }
+
             $trick->setUser($this->getUser());
             $manager = $this->getDoctrine()->getManager();
             $manager->persist($trick);

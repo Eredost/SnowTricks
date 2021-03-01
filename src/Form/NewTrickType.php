@@ -26,11 +26,10 @@ class NewTrickType extends AbstractType
         $builder
             ->add('name')
             ->add('description')
-            ->add('images', CollectionType::class, [
-                'label' => false,
-                'mapped'         => false,
+            ->add('trickImages', CollectionType::class, [
+                'label'          => false,
                 'required'       => false,
-                'entry_type'     => NewImageType::class,
+                'entry_type'     => NewTrickImageType::class,
                 'entry_options'  => [
                     'label' => false,
                 ],
@@ -38,6 +37,7 @@ class NewTrickType extends AbstractType
                 'allow_delete'   => true,
                 'prototype'      => true,
                 'prototype_name' => 'new_trick_image',
+                'by_reference'   => false,
             ])
             ->add('category')
             ->addEventListener(
