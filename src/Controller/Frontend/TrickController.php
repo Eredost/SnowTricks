@@ -6,11 +6,13 @@ namespace App\Controller\Frontend;
 
 use App\Entity\Comment;
 use App\Entity\Trick;
+use App\Form\EditTrickType;
 use App\Form\NewCommentType;
 use App\Form\NewTrickType;
 use App\Repository\CommentRepository;
 use App\Repository\TrickRepository;
 use App\Service\FileUploader;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
@@ -28,6 +30,13 @@ class TrickController extends AbstractController
      * @Route("/new",
      *     name="new",
      *     methods={"GET", "POST"})
+     * @IsGranted("IS_AUTHENTICATED_FULLY")
+     *
+     * @param Request          $request
+     * @param SluggerInterface $slugger
+     * @param FileUploader     $fileUploader
+     *
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
     public function new(Request $request, SluggerInterface $slugger, FileUploader $fileUploader)
     {
@@ -59,6 +68,50 @@ class TrickController extends AbstractController
 
         return $this->render('frontend/trick-add.html.twig', [
             'newTrickForm' => $newTrickForm->createView(),
+        ]);
+    }
+
+    /**
+     * @Route("/{slug}/edit",
+     *     name="edit",
+     *     methods={"GET", "POST"})
+     * @IsGranted("IS_AUTHENTICATED_FULLY")
+     *
+     * @param string          $slug
+     * @param TrickRepository $trickRepository
+     * @param Request         $request
+     * @param FileUploader    $fileUploader
+     *
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     */
+    public function edit(string $slug, TrickRepository $trickRepository, Request $request, FileUploader $fileUploader)
+    {
+        if (!$trick = $trickRepository->getTrickWithCategoryAndMedias($slug)) {
+            throw new NotFoundHttpException('Cette figure n\'existe pas');
+        }
+        $editTrickForm = $this->createForm(EditTrickType::class, $trick);
+        $editTrickForm->handleRequest($request);
+
+        if ($editTrickForm->isSubmitted() && $editTrickForm->isValid()) {
+
+            foreach ($trick->getTrickImages() as $image) {
+                /** @var UploadedFile|null $imageFile */
+                $imageFile = $image->getFile();
+
+                if ($imageFile) {
+                    $newFilename = $fileUploader->upload($imageFile, $this->getParameter('trick_images_directory'));
+                    $image->setSrc($newFilename);
+                }
+            }
+            $manager = $this->getDoctrine()->getManager();
+            $manager->flush();
+
+            return $this->redirectToRoute('trick_show', ['slug' => $trick->getSlug()]);
+        }
+
+        return $this->render('frontend/trick-edit.html.twig', [
+            'trick'         => $trick,
+            'editTrickForm' => $editTrickForm->createView(),
         ]);
     }
 

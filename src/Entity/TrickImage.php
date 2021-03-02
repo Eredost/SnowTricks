@@ -23,13 +23,6 @@ class TrickImage
 
     /**
      * @ORM\Column(type="string", length=255)
-     * @Assert\NotBlank(
-     *     message = "La source ne peut pas être vide"
-     * )
-     * @Assert\Length(
-     *     max = 255,
-     *     maxMessage = "La source ne peut pas dépasser {{ limit }} caractères"
-     * )
      */
     private $src;
 
