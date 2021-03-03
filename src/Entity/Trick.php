@@ -92,6 +92,7 @@ class Trick
     /**
      * @ORM\OneToMany(targetEntity=TrickImage::class, mappedBy="trick", orphanRemoval=true, cascade="persist")
      * @Assert\Valid
+     * @Groups({"list_tricks"})
      */
     private $trickImages;
 

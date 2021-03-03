@@ -21,8 +21,9 @@ class Mailer
      * Mailer constructor.
      *
      * @param MailerInterface $mailer
+     * @param string          $applicationEmail
      */
-    public function __construct(MailerInterface $mailer, $applicationEmail)
+    public function __construct(MailerInterface $mailer, string $applicationEmail)
     {
         $this->mailer = $mailer;
         $this->applicationEmail = $applicationEmail;

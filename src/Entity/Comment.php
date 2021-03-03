@@ -93,4 +93,14 @@ class Comment
 
         return $this;
     }
+
+    /**
+     * @Groups({"list_comments"})
+     *
+     * @return \DateTimeInterface|null
+     */
+    public function getCreatedAt(): ?\DateTimeInterface
+    {
+        return $this->createdAt;
+    }
 }

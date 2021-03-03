@@ -65,6 +65,11 @@ let tricksList = {
                 link.href = tricksList.linkTarget.replace(/slug$/, trick.slug);
             }
 
+            if (trick.trickImages[0]) {
+                let imageElement = cloneElement.querySelector('.trick-card__image > img');
+                imageElement.src = imageElement.src.replace(/\/figure-placeholder\.jpg$/, '/images/' + trick.trickImages[0].src);
+            }
+
             if (isAuthenticated === 'false') {
                 cloneElement.querySelector('.trick-card__actions').remove();
             }

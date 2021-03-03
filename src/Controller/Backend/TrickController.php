@@ -37,7 +37,8 @@ class TrickController extends AbstractController
             return $this->json(['message' => 'The url parameters provided must be integers'], 400);
         }
 
-        $tricks = $trickRepository->findBy([], ['createdAt' => 'DESC'], $limit, ($page - 1) * $limit);
+        $tricks = $trickRepository->getTrickWithFeaturedImage($limit, ($page - 1) * $limit);
+        //$tricks = $trickRepository->findBy([], ['createdAt' => 'DESC'], $limit, ($page - 1) * $limit);
 
         return $this->json($tricks, 200, [], [
             'groups' => 'list_tricks',
@@ -60,7 +61,7 @@ class TrickController extends AbstractController
     public function listComments(int $trickId, Request $request, CommentRepository $commentRepository, TrickRepository $trickRepository): Response
     {
         $page = $request->query->get('page', 1);
-        $limit = $request->query->get('limit', 5);
+        $limit = $request->query->get('limit', 10);
 
         if (filter_var($page, FILTER_VALIDATE_INT) === false
             || filter_var($limit, FILTER_VALIDATE_INT) === false) {
