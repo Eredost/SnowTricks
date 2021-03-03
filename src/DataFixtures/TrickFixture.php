@@ -5,10 +5,11 @@ namespace App\DataFixtures;
 use App\DataFixtures\Providers\TrickProvider;
 use App\Entity\Category;
 use App\Entity\Trick;
+use App\Entity\TrickImage;
+use App\Entity\TrickVideo;
 use Doctrine\Common\Annotations\Annotation\Required;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
-use Symfony\Component\String\Slugger\AsciiSlugger;
 use Symfony\Component\String\Slugger\SluggerInterface;
 
 class TrickFixture extends AbstractFixture implements DependentFixtureInterface
@@ -47,6 +48,19 @@ class TrickFixture extends AbstractFixture implements DependentFixtureInterface
                     ->setUser($this->getRandomReference('main_user'))
                     ->setCreatedAt($this->faker->dateTimeBetween('-2 months', '-30 days'))
                 ;
+
+                // One chance out of two adding a video and an image as media for the trick
+                if ($this->faker->boolean()) {
+                    $trickImage = (new TrickImage())
+                        ->setSrc($this->faker->randomElement($this->faker->getTrickImages()))
+                    ;
+                    $trickVideo = (new TrickVideo())
+                        ->setSrc($this->faker->randomElement($this->faker->getTrickVideos()))
+                    ;
+                    $trick->addTrickImage($trickImage)
+                        ->addTrickVideo($trickVideo)
+                    ;
+                }
 
                 return $trick;
             });

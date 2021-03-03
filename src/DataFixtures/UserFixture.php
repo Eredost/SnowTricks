@@ -19,7 +19,7 @@ class UserFixture extends AbstractFixture
 
     protected function loadData(ObjectManager $manager): void
     {
-        $admins = UserProvider::getAdminUsers();
+        $admins = UserProvider::getTestUsers();
 
         // Add users with administrator privileges
         $this->createMany(count($admins), 'admin_user', function ($count) use ($admins) {
