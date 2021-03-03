@@ -36,32 +36,6 @@ class TrickProvider
             'Drunk Driver',
             'Frontside grab/indy',
             'Gorilla',
-            'Japan air',
-            'Lien air',
-            'Korean bacon',
-            'Melon',
-            'Watermelon',
-            'Mindly, super',
-            'Mule kick',
-            'Mute',
-            'Nose Grab',
-            'Nuclear',
-            'Pickpocket',
-            'Perfect',
-            'Roast beef',
-            'Rocket Air',
-            'Rusty Trombone',
-            'Seatbelt',
-            'Slob',
-            'Stiffy',
-            'Stalefish',
-            'Squirrel',
-            'Swiss cheese air',
-            'Tailfish',
-            'Tail Grab',
-            'Taipan air',
-            'Tindy',
-            'Truck driver',
         ],
         'Spin'                 => [
             '180 degree',
@@ -82,14 +56,6 @@ class TrickProvider
             'Chicane',
             'Underflip',
             'Frontside Rodeo',
-            'Backside Rodeo flip',
-            'Ninety Roll',
-            'Rippey flip',
-            'Crippler',
-            'McTwist',
-            'Haakon flip',
-            'Michalchuk',
-            'Sato flip',
         ],
         'Slide'                => [
             '50-50',
@@ -100,11 +66,6 @@ class TrickProvider
             'Nodeslide',
             'Tailslide',
             'Nosepress',
-            'Tailpress',
-            'MJ',
-            'HJ',
-            'Zeach',
-            'The Gutterball',
         ],
         'Inverted hand plants' => [
             'Invert',
@@ -115,12 +76,6 @@ class TrickProvider
             'Eggflip',
             'McEgg',
             'Andrecht',
-            'Miller flip',
-            'Layback',
-            'HoHo',
-            'Killer Stand',
-            'Fresh',
-            'J-Tear',
         ],
         'Stalls'               => [
             'Nose-pick',
@@ -134,10 +89,50 @@ class TrickProvider
     ];
 
     /**
+     * Contains snowboard tricks videos
+     *
+     * @var string[]
+     */
+    private const TRICK_VIDEOS = [
+        'https://www.youtube.com/embed/SFYYzy0UF-8',
+        'https://www.youtube.com/embed/V9xuy-rVj9w',
+        'https://www.youtube.com/embed/dSZ7_TXcEdM',
+        'https://www.youtube.com/embed/L4bIunv8fHM',
+    ];
+
+    /**
+     * Contains name of snowboard trick pictures
+     *
+     * @var string[]
+     */
+    private const TRICK_IMAGES = [
+        'figure-16b.jpg',
+        'figure-36r.jpg',
+        'figure-42j.jpg',
+        'figure-81p.jpg',
+    ];
+
+    /**
      * @return array[]
      */
     public static function getTricksSortedByCategories(): array
     {
         return static::TRICKS_BY_CATEGORIES;
+    }
+
+    /**
+     * @return string[]
+     */
+    public static function getTrickVideos(): array
+    {
+        return static::TRICK_VIDEOS;
+    }
+
+    /**
+     * @return string[]
+     */
+    public static function getTrickImages(): array
+    {
+        return static::TRICK_IMAGES;
     }
 }

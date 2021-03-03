@@ -7,24 +7,24 @@ namespace App\DataFixtures\Providers;
 class UserProvider
 {
     /**
-     * Contains all users with administrator privileges
+     * Contains all users for test purposes
      *
      * @var array[]
      */
-    private const ADMIN_USERS = [
+    private const TEST_USERS = [
         [
-            'username'  => 'admin',
-            'email'     => 'admin@snowtricks.fr',
+            'username'  => 'test',
+            'email'     => 'test@snowtricks.fr',
             'password'  => 'L4hA5tcRS4yBcJLp',
-            'roles'     => ['ROLE_ADMIN'],
+            'roles'     => ['ROLE_USER'],
         ],
     ];
 
     /**
      * @return array[]
      */
-    public static function getAdminUsers()
+    public static function getTestUsers(): array
     {
-        return static::ADMIN_USERS;
+        return static::TEST_USERS;
     }
 }
