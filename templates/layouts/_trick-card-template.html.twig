@@ -10,11 +10,22 @@
                 <a href="#" class="trick__link"></a>
             </h3>
 
+            {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                <div class="trick-card__actions">
 
-            <div class="trick-card__actions">
-                <i class="fa fa-pencil" aria-hidden="true"></i>
-                <i class="fa fa-trash" aria-hidden="true"></i>
-            </div>
+                    <a href="{{ path('trick_edit', {'slug': 'slug'}) }}" class="trick-card__edit">
+                        <i class="fa fa-pencil" aria-hidden="true"></i>
+                    </a>
+
+                    <form action="{{ path('trick_delete', {'slug': 'slug'}) }}" method="post" class="trick-card__delete" onsubmit="return confirm('Etes-vous sûr de vouloir supprimer cette figure ?')">
+                        <input type="hidden" name="_method" value="DELETE">
+                        <input type="hidden" name="_csrf_token" value="{{ csrf_token('trick-delete') }}">
+                        <button type="submit">
+                            <i class="fa fa-trash" aria-hidden="true"></i>
+                        </button>
+                    </form>
+                </div>
+            {% endif %}
         </div>
     </div>
 </template>

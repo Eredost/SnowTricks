@@ -11,9 +11,11 @@ use App\Form\NewCommentType;
 use App\Repository\CommentRepository;
 use App\Repository\TrickRepository;
 use App\Service\FileUploader;
+use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
@@ -114,6 +116,34 @@ class TrickController extends AbstractController
             'trick'         => $trick,
             'editTrickForm' => $editTrickForm->createView(),
         ]);
+    }
+
+    /**
+     * @Route("/{slug}/delete",
+     *     name="delete",
+     *     methods={"DELETE"})
+     * @IsGranted("IS_AUTHENTICATED_FULLY")
+     *
+     * @param string                 $slug
+     * @param TrickRepository        $trickRepository
+     * @param Request                $request
+     * @param EntityManagerInterface $manager
+     *
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function delete(string $slug, TrickRepository $trickRepository, Request $request, EntityManagerInterface $manager): RedirectResponse
+    {
+        if (!$trick = $trickRepository->findOneBy(['slug' => $slug])) {
+            throw new NotFoundHttpException('Cette figure n\'existe pas');
+        }
+        if ($this->isCsrfTokenValid('trick-delete', $request->request->get('_csrf_token'))) {
+            $manager->remove($trick);
+            $manager->flush();
+
+            $this->addFlash('success', sprintf('La figure %s a été supprimée avec succès !', $trick->getName()));
+        }
+
+        return $this->redirectToRoute('homepage');
     }
 
     /**

@@ -21,7 +21,6 @@ let tricksList = {
     handleLoadMoreClick: function (e) {
         tricksList.toggleLoader();
         let tricksTotal = e.currentTarget.dataset.tricksCount;
-        let isAuthenticated = e.currentTarget.dataset.isAuthenticated;
 
         fetch(e.currentTarget.dataset.tricksPath + '?page=' + tricksList.page + '&limit=' + tricksList.limit)
             .then(function (res) {
@@ -38,7 +37,7 @@ let tricksList = {
                     document.getElementById('js-tricks-arrow').classList.remove('hide');
                 }
 
-                tricksList.displayTricks(res, isAuthenticated);
+                tricksList.displayTricks(res);
             })
             .catch(function (res) {
                 console.error(res);
@@ -53,7 +52,7 @@ let tricksList = {
         tricksList.loadMoreButton.classList.toggle('hide');
     },
 
-    displayTricks: function (tricks, isAuthenticated) {
+    displayTricks: function (tricks) {
         for (let trick of tricks) {
             let cloneElement = document.importNode(tricksList.template.content, true);
 
@@ -65,13 +64,20 @@ let tricksList = {
                 link.href = tricksList.linkTarget.replace(/slug$/, trick.slug);
             }
 
+            // Display featured image
             if (trick.trickImages[0]) {
                 let imageElement = cloneElement.querySelector('.trick-card__image > img');
                 imageElement.src = imageElement.src.replace(/\/figure-placeholder\.jpg$/, '/images/' + trick.trickImages[0].src);
             }
 
-            if (isAuthenticated === 'false') {
-                cloneElement.querySelector('.trick-card__actions').remove();
+            // Handle trick-card administration features
+            let cardActionsElement = cloneElement.querySelector('.trick-card__actions');
+            if (cardActionsElement) {
+                let editLinkElement = cardActionsElement.querySelector('.trick-card__edit');
+                let deleteFormElement = cardActionsElement.querySelector('.trick-card__delete');
+
+                editLinkElement.href = editLinkElement.href.replace(/\/slug\//, '/' + trick.slug + '/');
+                deleteFormElement.action = deleteFormElement.action.replace(/\/slug\//, '/' + trick.slug + '/');
             }
 
             tricksList.wrapper.appendChild(cloneElement);

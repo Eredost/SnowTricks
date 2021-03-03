@@ -11,7 +11,6 @@ class UniqueSlugValidator extends ConstraintValidator
 {
     private const NOT_ALLOWED_SLUG = [
         'new',
-        'edit',
     ];
 
     /** @var SluggerInterface $slugger */
