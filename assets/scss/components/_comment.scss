@@ -24,10 +24,19 @@
     text-align: left;
   }
 
+  &__head {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.5em;
+  }
+
+  &__creation-date,
+  &__author-name {
+    font-size: 0.9em;
+  }
+
   &__author-name {
     color: $brand-color;
-    font-size: 0.9em;
-    margin-bottom: 0.5em;
   }
 
   @media all and (min-width: $breakpoint-small) {

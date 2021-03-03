@@ -5,7 +5,7 @@ let commentsList = {
         commentsList.loaderElement = document.getElementById('js-loading');
 
         commentsList.page = 1;
-        commentsList.limit = 5;
+        commentsList.limit = 10;
         commentsList.count = 0;
 
         // Handle click on Load-more button
@@ -54,6 +54,7 @@ let commentsList = {
 
             cloneElement.querySelector('.comment__author-name').textContent = comment.user.username;
             cloneElement.querySelector('.comment__content').textContent = comment.content;
+            cloneElement.querySelector('.comment__creation-date').textContent = new Date(comment.createdAt).toLocaleDateString();
 
             commentsList.wrapper.appendChild(cloneElement);
         }

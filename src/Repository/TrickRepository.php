@@ -45,6 +45,20 @@ class TrickRepository extends ServiceEntityRepository
         ;
     }
 
+    public function getTrickWithFeaturedImage(int $limit, int $offset)
+    {
+        return $this->createQueryBuilder('t')
+            ->select('t')
+            ->leftJoin('t.trickImages', 'ti')
+            ->addSelect('ti')
+            ->orderBy('t.createdAt', 'DESC')
+            ->setMaxResults($limit)
+            ->setFirstResult($offset)
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+
     // /**
     //  * @return Trick[] Returns an array of Trick objects
     //  */

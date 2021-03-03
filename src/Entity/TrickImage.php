@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Entity\Traits\TimestampableTrait;
 use App\Repository\TrickImageRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
@@ -23,6 +24,7 @@ class TrickImage
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"list_tricks"})
      */
     private $src;
 
