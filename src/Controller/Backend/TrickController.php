@@ -38,7 +38,6 @@ class TrickController extends AbstractController
         }
 
         $tricks = $trickRepository->getTrickWithFeaturedImage($limit, ($page - 1) * $limit);
-        //$tricks = $trickRepository->findBy([], ['createdAt' => 'DESC'], $limit, ($page - 1) * $limit);
 
         return $this->json($tricks, 200, [], [
             'groups' => 'list_tricks',
