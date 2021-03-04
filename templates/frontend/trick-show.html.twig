@@ -2,6 +2,14 @@
 
 {% block title %}{{ trick.name }}{% endblock %}
 
+{% block metaImage %}
+    {% if trick.trickImages is not empty %}
+        {{ absolute_url(asset('uploads/images/' ~ trick.trickImages[0].src)) }}
+    {% else %}
+        {{ parent() }}
+    {% endif %}
+{% endblock %}
+
 {% block body %}
     <div class="page">
         <section class="trick-details">

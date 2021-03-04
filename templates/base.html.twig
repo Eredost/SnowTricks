@@ -5,12 +5,26 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
         <title>{% block title %}{% endblock %} - SnowTricks</title>
+        <meta name="description" content="{% block metaDescription %}Rejoignez notre communauté de passionné de la glisse et découvrez de nouvelles figures enrichies par les utilisateurs{% endblock %}" />
 
         {# Favicon #}
         <link rel="apple-touch-icon" sizes="180x180" href="{{ asset('apple-touch-icon.png') }}">
         <link rel="icon" type="image/png" sizes="32x32" href="{{ asset('favicon-32x32.png') }}">
         <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('favicon-16x16.png') }}">
         <link rel="manifest" href="{{ asset('site.webmanifest') }}">
+
+        {# Open Graph and Twitter cards #}
+        <meta property="og:url"         content="https://snowtricks.fr" />
+        <meta property="og:title"       content="{{ block('title') }} - SnowTricks" />
+        <meta property="og:description" content="{{ block('metaDescription') }}" />
+        <meta property="og:image"       content="{% block metaImage %}{{ absolute_url(asset('uploads/figure-placeholder.jpg')) }}{% endblock %}" />
+        <meta property="og:type"        content="website" />
+        <meta property="og:locale"      content="fr_FR" />
+
+        <meta property="twitter:card"        content="summary">
+        <meta property="twitter:description" content="{{ block('metaDescription') }}">
+        <meta property="twitter:title"       content="{{ block('title') }} - SnowTricks">
+        <meta property="twitter:image"       content="{{ block('metaImage') }}">
 
         {# Stylesheets #}
         {% block stylesheets %}
