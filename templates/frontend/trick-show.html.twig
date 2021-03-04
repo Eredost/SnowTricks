@@ -7,8 +7,34 @@
         <section class="trick-details">
 
             <div class="trick-details__banner">
-                <img src="{{ asset('uploads/figure-placeholder.jpg') }}" alt="">
+                <img src="{{ (trick.trickImages is not empty) ? asset('uploads/images/' ~ trick.trickImages[0].src): asset('uploads/figure-placeholder.jpg') }}" alt="">
                 <h2 class="trick-details__name">{{ trick.name }}</h2>
+
+                {% for label, messages in app.flashes(['success', 'warning']) %}
+                    {% for message in messages %}
+                        <div class="alert {{ label }}">
+                            <i class="fa fa-times alert__close" aria-hidden="true"></i>
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endfor %}
+
+                {% if trick.trickImages is not empty %}
+                    <div class="trick-details__banner-actions">
+
+                        <a href="{{ path('trick-image_edit', {'id': trick.trickImages[0].id}) }}" class="trick-details__edit">
+                            <i class="fa fa-pencil" aria-hidden="true"></i>
+                        </a>
+
+                        <form action="{{ path('trick-image_delete', {'id': trick.trickImages[0].id}) }}" method="post" class="trick-details__delete" onsubmit="return confirm('Etes-vous sûr de vouloir supprimer cette image ?')">
+                            <input type="hidden" name="_method" value="DELETE">
+                            <input type="hidden" name="_csrf_token" value="{{ csrf_token('trick-image-delete') }}">
+                            <button type="submit">
+                                <i class="fa fa-trash" aria-hidden="true"></i>
+                            </button>
+                        </form>
+                    </div>
+                {% endif %}
             </div>
 
             <div class="trick-details__medias">
@@ -42,15 +68,6 @@
                 <h3 class="trick-details__medium-title">
                     Ajouter un commentaire
                 </h3>
-
-                {% for label, messages in app.flashes(['success', 'warning']) %}
-                    {% for message in messages %}
-                        <div class="alert {{ label }}">
-                            <i class="fa fa-times alert__close" aria-hidden="true"></i>
-                            {{ message }}
-                        </div>
-                    {% endfor %}
-                {% endfor %}
 
                 {% if is_granted('IS_AUTHENTICATED_FULLY') %}
                     {{ form_start(newCommentForm, {'attr': {'class': 'form trick-details__comment-form'}}) }}
