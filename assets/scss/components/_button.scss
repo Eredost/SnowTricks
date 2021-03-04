@@ -18,4 +18,14 @@
     color: $brand-color;
     background-color: $text-color-alt;
   }
+
+  &.warning {
+    background-color: $warning-color;
+
+    &:hover {
+      border: 2px solid $warning-color;
+      background-color: $text-color-alt;
+      color: $warning-color;
+    }
+  }
 }

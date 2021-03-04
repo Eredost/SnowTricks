@@ -42,6 +42,7 @@ class TrickImageController extends AbstractController
             if ($imageFile = $trickImage->getFile()) {
                 $newFilename = $uploader->upload($imageFile, $this->getParameter('trick_images_directory'));
                 $trickImage->setSrc($newFilename);
+                $trickImage->setUpdatedAt(new \DateTime());
 
                 $manager = $this->getDoctrine()->getManager();
                 $manager->flush();

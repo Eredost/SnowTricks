@@ -104,6 +104,7 @@ class TrickController extends AbstractController
                     $image->setSrc($newFilename);
                 }
             }
+            $trick->setUpdatedAt(new \DateTime());
             $manager = $this->getDoctrine()->getManager();
             $manager->flush();
 
