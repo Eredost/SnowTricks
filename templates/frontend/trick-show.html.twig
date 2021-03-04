@@ -72,7 +72,7 @@
                     {% for video in trick.trickVideos %}
                         <div class="trick-media">
                             <div class="trick-media__media">
-                                <iframe width="560" height="315" src="{{ video.src }}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                <iframe width="560" height="315" src="{{ video.src }}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                             </div>
                             {% if is_granted('IS_AUTHENTICATED_FULLY') %}
                                 <div class="trick-media__actions">
