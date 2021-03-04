@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier l'image{% endblock %}
+
+{% block body %}
+    <section class="login">
+        <div class="section-wrapper">
+            <h2 class="login__title">Modifier l'image</h2>
+
+            {{ form_start(editTrickImageForm, {'attr': {'class': 'form'}}) }}
+
+            <div class="form__group">
+                <img class="thumbnail" src="{{ asset('uploads/images/') ~ editTrickImageForm.vars.value.src }}" alt="">
+                {{ form_label(editTrickImageForm.file, 'Nouvelle image', {'label_attr': {'class': 'form__label'}}) }}
+                {{ form_widget(editTrickImageForm.file, {'attr': {'class': 'form__input'}}) }}
+                <div class="form__error">
+                    {{ form_errors(editTrickImageForm.file) }}
+                </div>
+            </div>
+
+            <input type="submit" class="button form__submit" value="Modifier">
+            <a href="{{ path('trick_show', {'slug': trickImage.trick.slug}) }}" class="button">Annuler</a>
+            {{ form_end(editTrickImageForm) }}
+
+        </div>
+    </section>
+{% endblock %}
