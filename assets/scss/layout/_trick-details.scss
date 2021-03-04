@@ -67,6 +67,24 @@
     }
   }
 
+  &__medias {
+    text-align: center;
+
+    & > div {
+      display: none;
+      justify-content: center;
+      flex-wrap: wrap;
+
+      &.visible {
+        display: flex;
+      }
+    }
+
+    & > button {
+      margin-top: 1em;
+    }
+  }
+
   &__name {
     font-size: 1.9em;
     color: $text-color-alt;
@@ -141,8 +159,15 @@
       height: 550px;
     }
 
-    &__medias > button {
-      display: none;
+    &__medias {
+      & > button {
+        display: none;
+      }
+
+      & > div {
+        display: flex;
+        justify-content: flex-start;
+      }
     }
 
     &__body {

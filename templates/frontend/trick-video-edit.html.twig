@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier la vidéo{% endblock %}
+
+{% block body %}
+    <section class="login">
+        <div class="section-wrapper">
+            <h2 class="login__title">Modifier la vidéo</h2>
+
+            {{ form_start(editTrickVideoForm, {'attr': {'class': 'form'}}) }}
+
+            <div class="form__group">
+                {{ form_label(editTrickVideoForm.src, 'Vidéo (URL Embed)', {'label_attr': {'class': 'form__label'}}) }}
+                {{ form_widget(editTrickVideoForm.src, {'attr': {'class': 'form__input'}}) }}
+                <div class="form__error">
+                    {{ form_errors(editTrickVideoForm.src) }}
+                </div>
+            </div>
+
+            <input type="submit" class="button form__submit" value="Modifier">
+            <a href="{{ path('trick_show', {'slug': trickVideo.trick.slug}) }}" class="button">Annuler</a>
+            {{ form_end(editTrickVideoForm) }}
+
+        </div>
+    </section>
+{% endblock %}

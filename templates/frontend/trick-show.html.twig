@@ -19,7 +19,7 @@
                     {% endfor %}
                 {% endfor %}
 
-                {% if trick.trickImages is not empty %}
+                {% if trick.trickImages is not empty and is_granted('IS_AUTHENTICATED_FULLY') %}
                     <div class="trick-details__banner-actions">
 
                         <a href="{{ path('trick-image_edit', {'id': trick.trickImages[0].id}) }}" class="trick-details__edit">
@@ -38,7 +38,55 @@
             </div>
 
             <div class="trick-details__medias">
-                <button class="button">Voir les médias</button>
+                <div>
+                    {% for image in trick.trickImages %}
+                        <div class="trick-media">
+                            <a href="{{ asset('uploads/images/' ~ image.src) }}" class="trick-media__media">
+                                <img src="{{ asset('uploads/images/' ~ image.src) }}" alt="">
+                            </a>
+                            {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                                <div class="trick-media__actions">
+                                    <a href="{{ path('trick-image_edit', {'id': image.id}) }}" class="trick-details__edit">
+                                        <i class="fa fa-pencil" aria-hidden="true"></i>
+                                    </a>
+
+                                    <form action="{{ path('trick-image_delete', {'id': image.id}) }}" method="post" class="trick-details__delete" onsubmit="return confirm('Etes-vous sûr de vouloir supprimer cette image ?')">
+                                        <input type="hidden" name="_method" value="DELETE">
+                                        <input type="hidden" name="_csrf_token" value="{{ csrf_token('trick-image-delete') }}">
+                                        <button type="submit">
+                                            <i class="fa fa-trash" aria-hidden="true"></i>
+                                        </button>
+                                    </form>
+                                </div>
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+                    {% for video in trick.trickVideos %}
+                        <div class="trick-media">
+                            <div class="trick-media__media">
+                                <iframe width="560" height="315" src="{{ video.src }}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                            </div>
+                            {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+                                <div class="trick-media__actions">
+                                    <a href="{{ path('trick-video_edit', {'id': video.id}) }}" class="trick-details__edit">
+                                        <i class="fa fa-pencil" aria-hidden="true"></i>
+                                    </a>
+
+                                    <form action="{{ path('trick-video_delete', {'id': video.id}) }}" method="post" class="trick-details__delete" onsubmit="return confirm('Etes-vous sûr de vouloir supprimer cette vidéo ?')">
+                                        <input type="hidden" name="_method" value="DELETE">
+                                        <input type="hidden" name="_csrf_token" value="{{ csrf_token('trick-video-delete') }}">
+                                        <button type="submit">
+                                            <i class="fa fa-trash" aria-hidden="true"></i>
+                                        </button>
+                                    </form>
+                                </div>
+                            {% endif %}
+                        </div>
+                    {% endfor %}
+                </div>
+                {% if trick.trickImages is not empty or trick.trickVideos is not empty %}
+                    <button class="button js-media-show">Voir les médias</button>
+                {% endif %}
             </div>
 
             <div class="trick-details__body">

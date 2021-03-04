@@ -1,5 +1,11 @@
 let commentsList = {
     init: function () {
+        // Handle mobile media button
+        let mediaButtonElement = document.querySelector('.js-media-show');
+        if (mediaButtonElement) {
+            mediaButtonElement.addEventListener('click', commentsList.handleMediaButtonClick);
+        }
+
         commentsList.wrapper = document.getElementById('js-comments-wrapper');
         commentsList.template = document.getElementById('js-comment-template');
         commentsList.loaderElement = document.getElementById('js-loading');
@@ -15,6 +21,11 @@ let commentsList = {
         let event = document.createEvent('HTMLEvents');
         event.initEvent('click', false, true);
         commentsList.loadMoreButton.dispatchEvent(event);
+    },
+
+    handleMediaButtonClick: function(e) {
+        let mediaWrapperElement = e.currentTarget.previousElementSibling;
+        mediaWrapperElement.classList.toggle('visible');
     },
 
     handleLoadMoreClick: function (e) {
