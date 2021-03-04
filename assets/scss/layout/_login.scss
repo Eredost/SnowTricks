@@ -39,4 +39,8 @@
     border-radius: 7px;
     margin-bottom: 1em;
   }
+
+  &__submits > * {
+    display: inline-block;
+  }
 }

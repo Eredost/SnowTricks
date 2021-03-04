@@ -37,6 +37,7 @@ class TrickVideoController extends AbstractController
         $editTrickVideoForm->handleRequest($request);
 
         if ($editTrickVideoForm->isSubmitted() && $editTrickVideoForm->isValid()) {
+            $trickVideo->setUpdatedAt(new \DateTime());
             $manager = $this->getDoctrine()->getManager();
             $manager->flush();
 

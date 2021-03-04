@@ -7,7 +7,7 @@
         <div class="section-wrapper">
             <h2 class="login__title">Modifier la figure</h2>
 
-            {{ form_start(editTrickForm, {'attr': {'class': 'form'}}) }}
+            {{ form_start(editTrickForm, {'attr': {'class': 'form', 'id': 'edit-trick-form'}}) }}
 
             <div class="form__group">
                 {{ form_label(editTrickForm.name, 'Nom de la figure', {'label_attr': {'class': 'form__label'}}) }}
@@ -85,9 +85,18 @@
                     {{ form_errors(editTrickForm.category) }}
                 </div>
             </div>
-
-            <input type="submit" class="button form__submit" value="Modifier">
             {{ form_end(editTrickForm) }}
+
+            <div class="login__submits">
+                <input type="submit" class="button form__submit" value="Modifier" form="edit-trick-form">
+                <form action="{{ path('trick_delete', {'slug': trick.slug}) }}" method="post" onsubmit="return confirm('Etes-vous sûr de vouloir supprimer cette figure ?')">
+                    <input type="hidden" name="_method" value="DELETE">
+                    <input type="hidden" name="_csrf_token" value="{{ csrf_token('trick-delete') }}">
+                    <button type="submit" class="button warning">
+                        Supprimer
+                    </button>
+                </form>
+            </div>
 
         </div>
     </section>
