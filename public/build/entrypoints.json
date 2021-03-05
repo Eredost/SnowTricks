@@ -1,0 +1,38 @@
+{
+  "entrypoints": {
+    "app": {
+      "js": [
+        "/build/runtime.8319ef28.js",
+        "/build/109.85f91e2c.js",
+        "/build/838.710f8a89.js",
+        "/build/app.975aa540.js"
+      ],
+      "css": [
+        "/build/app.ea725458.css"
+      ]
+    },
+    "tricks_list": {
+      "js": [
+        "/build/runtime.8319ef28.js",
+        "/build/109.85f91e2c.js",
+        "/build/893.da5f0f12.js",
+        "/build/tricks_list.b69697c8.js"
+      ]
+    },
+    "comments_list": {
+      "js": [
+        "/build/runtime.8319ef28.js",
+        "/build/109.85f91e2c.js",
+        "/build/893.da5f0f12.js",
+        "/build/comments_list.0e789538.js"
+      ]
+    },
+    "trick_collection": {
+      "js": [
+        "/build/runtime.8319ef28.js",
+        "/build/109.85f91e2c.js",
+        "/build/trick_collection.ba80b18b.js"
+      ]
+    }
+  }
+}
