@@ -1,0 +1,23 @@
+{
+  "build/app.css": "/build/app.ea725458.css",
+  "build/app.js": "/build/app.975aa540.js",
+  "build/app.jpg": "/build/images/snowboard-bg.28ac0300.jpg",
+  "build/app.eot": "/build/fonts/fontawesome-webfont.8b43027f.eot",
+  "build/app.svg": "/build/images/fontawesome-webfont.c1e38fd9.svg",
+  "build/app.ttf": "/build/fonts/fontawesome-webfont.1e59d233.ttf",
+  "build/app.woff2": "/build/fonts/fontawesome-webfont.20fd1704.woff2",
+  "build/app.woff": "/build/fonts/fontawesome-webfont.f691f37e.woff",
+  "build/tricks_list.js": "/build/tricks_list.b69697c8.js",
+  "build/comments_list.js": "/build/comments_list.0e789538.js",
+  "build/trick_collection.js": "/build/trick_collection.ba80b18b.js",
+  "build/runtime.js": "/build/runtime.8319ef28.js",
+  "build/109.85f91e2c.js": "/build/109.85f91e2c.js",
+  "build/893.da5f0f12.js": "/build/893.da5f0f12.js",
+  "build/838.710f8a89.js": "/build/838.710f8a89.js",
+  "build/node_modules/font-awesome/fonts/fontawesome-webfont.svg?v=4.7.0": "/build/images/fontawesome-webfont.c1e38fd9.svg",
+  "build/node_modules/font-awesome/fonts/fontawesome-webfont.eot?v=4.7.0": "/build/fonts/fontawesome-webfont.8b43027f.eot",
+  "build/node_modules/font-awesome/fonts/fontawesome-webfont.ttf?v=4.7.0": "/build/fonts/fontawesome-webfont.1e59d233.ttf",
+  "build/node_modules/font-awesome/fonts/fontawesome-webfont.woff?v=4.7.0": "/build/fonts/fontawesome-webfont.f691f37e.woff",
+  "build/node_modules/font-awesome/fonts/fontawesome-webfont.woff2?v=4.7.0": "/build/fonts/fontawesome-webfont.20fd1704.woff2",
+  "build/assets/images/snowboard-bg.jpg": "/build/images/snowboard-bg.28ac0300.jpg"
+}
