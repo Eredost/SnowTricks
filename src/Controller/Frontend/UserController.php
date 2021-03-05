@@ -7,6 +7,7 @@ namespace App\Controller\Frontend;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -27,7 +28,7 @@ class UserController extends AbstractController
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
-    public function accountValidation(Request $request, UserRepository $repository, EntityManagerInterface $manager)
+    public function accountValidation(Request $request, UserRepository $repository, EntityManagerInterface $manager): RedirectResponse
     {
         $token = $request->query->get('token');
         $email = $request->query->get('email');

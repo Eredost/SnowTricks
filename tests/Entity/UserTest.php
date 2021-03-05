@@ -39,7 +39,7 @@ class UserTest extends KernelTestCase
 
     public function testInvalidUniqueUsername(): void
     {
-        $this->assertHasErrors($this->getEntity()->setUsername('admin'), 1);
+        $this->assertHasErrors($this->getEntity()->setUsername('test'), 1);
     }
 
     public function testInvalidBlankEmail(): void
@@ -59,7 +59,7 @@ class UserTest extends KernelTestCase
 
     public function testInvalidUniqueEmail(): void
     {
-        $this->assertHasErrors($this->getEntity()->setEmail('admin@snowtricks.fr'), 1);
+        $this->assertHasErrors($this->getEntity()->setEmail('test@snowtricks.fr'), 1);
     }
 
     public function testInvalidBlankPassword(): void
