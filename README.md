@@ -9,7 +9,7 @@ The application must be made in PHP using the Symfony framework.
 
 ## Installation
 
-Before you can download the project you must first have a PHP version at least ^7.2.5 and a recent version of Composer.
+Before you can download the project you must first have a PHP version at least ^7.2.5, a recent version of Composer and the [Symfony CLI](https://symfony.com/download).
 
 To set up the project, follow the steps below:
 
@@ -27,9 +27,9 @@ To set up the project, follow the steps below:
         php bin/console doctrine:database:create
         php bin/console doctrine:migrations:migrate
         php bin/console doctrine:fixtures:load
-6. And finally you can launch the integrated Symfony server with the following command:
+6. And finally you can launch the Symfony server with the following command:
 
-        php bin/console server:run
+        symfony serve
 
 **And it's done !**
 

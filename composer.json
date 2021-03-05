@@ -98,5 +98,7 @@
             "allow-contrib": false,
             "require": "5.2.*"
         }
-    }
+    },
+    "name": "eredost/snowtricks",
+    "description": "Community site for snowboard enthusiasts with lots of advice on tricks to perform"
 }
