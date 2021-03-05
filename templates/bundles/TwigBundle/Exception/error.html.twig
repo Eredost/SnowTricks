@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Erreur {{ status_code }}{% endblock %}
+
+{% block body %}
+    <section class="exception">
+        <div class="exception__wrapper">
+            <h2 class="exception__title">Erreur {{ status_code }}</h2>
+            <p class="exception__description">
+                {{ exception.getMessage() }}<br>
+                Retour à la <a href="{{ path('homepage') }}">page d'accueil</a>
+            </p>
+        </div>
+    </section>
+{% endblock %}
